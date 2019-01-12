@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpiece.ious.mapper.UserMapper">
+
+    <select id="getUserByOpenId" parameterType="String" resultType="User">
+        select *from user where openid = #{openId};
+    </select>
+
+    <select id="getUserByPhone" parameterType="String" resultType="User">
+        select *from user where phone = #{phone};
+    </select>
+    
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(openId,createTime,updateTime) values(#{openId},#{createTime},#{updateTime});
+    </insert>
+
+    <select id="getUserByPwd" parameterType="User" resultType="User">
+        select * from user where phone = #{phone} and password=#{password};
+    </select>
+
+    <select id="getUserByTradingPwd" parameterType="User" resultType="User">
+        select * from user where id = #{id} and tradingPassword=#{tradingPassword};
+    </select>
+</mapper>

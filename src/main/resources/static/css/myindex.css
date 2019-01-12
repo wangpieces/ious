@@ -1,0 +1,77 @@
+/*自己写的样式*/
+.my_content_title, .my_content_item{
+    width:7.5rem;
+    height:1.2rem;
+    border-bottom:0px solid #e3e3e3;
+}
+.my_content_title li{
+    float:left;
+    width:3.7rem;
+    height:1rem;
+    text-align:center;
+    font-size:0.35rem;
+    line-height:1rem;
+}
+/*什么也没有时展示的样式*/
+.my_content .my_content_list_null{
+    border:0px solid red;
+    width:7.5rem;
+    min-height:7.5rem;
+    text-align: center;
+    font-size:0.3rem;
+}
+
+.my_content .my_content_title_active{
+    border-bottom:1px solid #079bff;
+    color:#079bff;
+}
+
+.my_content_list{
+    border:0px solid red;
+    width:7.5rem;
+    min-height:7.5rem;
+}
+.my_content_list .ul_1{
+    width:7.5rem;
+    height:auto;
+}
+.my_content_list .ul_1 .ul_1_li{
+    width:7.1rem;
+    height:2.6rem;
+    border:1px solid #DDD;
+    border-radius:8px;
+    margin-left:0.2rem;
+    margin-top:0.2rem;
+    background:white;
+}
+.my_content_list .ul_2{
+    width:7.1rem;
+    height:2.6rem;
+    border:0px solid red;
+ }
+.my_content_list_table_1,.my_content_list_table_2{
+    width:6.6rem;
+    border:0px solid red;
+    line-height:0.6rem;
+}
+.my_content_list_table_1 td{
+    width:3.3rem;
+    font-size:0.34rem;
+}
+.my_content_list_table_2 td{
+    width:2.2rem;
+    font-size:0.34rem;
+}
+.my_layer_content .layui-m-layercont{
+    height:1.6rem;
+}
+.my_layer_btn1,.my_layer_btn2{
+    width:100%;
+    height:0.8rem;
+    float:left;
+    line-height:0.8rem;
+    font-size:0.35rem;
+}
+.my_layer_btn1{
+     border-bottom:1px solid #d3d3d3;
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpiece.ious.mapper.PostponeMapper">
+
+    <insert id="savePosepone" parameterType="Postpone">
+        insert into postpone(iousId,postponeRate,postponeTime,postponeStatus,createTime,updateTime,money)
+        values(#{iousId},#{postponeRate},#{postponeTime},#{postponeStatus},#{createTime},#{updateTime},#{money})
+    </insert>
+
+    <select id="getPostpone" parameterType="Postpone" resultType="Postpone">
+        select * from postpone where iousId = #{iousId} order by createTime desc;
+    </select>
+
+    <update id="updatePostponeStatus" parameterType="Postpone">
+        update postpone set postponeStatus=#{postponeStatus},updateTime=#{updateTime} where id=#{id};
+    </update>
+
+    <select id="getByIousId" parameterType="Integer" resultType="Postpone">
+        select * from postpone where iousId = #{iousId} and postponeStatus=3 order by postponeTime desc limit 1;
+    </select>
+
+</mapper>

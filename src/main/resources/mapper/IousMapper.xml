@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpiece.ious.mapper.IousMapper">
+
+    <!--借条和展期一对一-->
+    <resultMap type="Ious" id="iousResult">
+        <id property="id" column="id"/>
+        <result property="lendUserId" column="lendUserId"/>
+        <result property="loanUserId" column="loanUserId"/>
+        <result property="money" column="money"/>
+        <result property="loanTime" column="loanTime"/>
+        <result property="returnTime" column="returnTime"/>
+        <result property="rate" column="rate"/>
+        <result property="lender" column="lender"/>
+        <result property="type" column="type"/>
+        <result property="purpose" column="purpose"/>
+        <result property="status" column="status"/>
+        <result property="cancelStatus" column="cancelStatus"/>
+        <result property="createTime" column="createTime"/>
+        <result property="updateTime" column="updateTime"/>
+        <result property="postpone.id" column="postponeId"/>
+        <result property="postpone.iousId" column="iousId"/>
+        <result property="postpone.postponeRate" column="postponeRate"/>
+        <result property="postpone.postponeTime" column="postponeTime"/>
+        <result property="postpone.postponeStatus" column="postponeStatus"/>
+    </resultMap>
+
+    <select id="getIousInfo" parameterType="Integer" resultType="Ious">
+        select * from ious where id = #{id};
+    </select>
+
+    <insert id="save" parameterType="Ious" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ious (lendUserId,loanUserId,money,loanTime,returnTime,rate,lender,loaner,type,purpose,moreInfo,status,cancelStatus,createTime,updateTime)
+        VALUES (#{lendUserId},#{loanUserId},#{money},#{loanTime},#{returnTime},#{rate},#{lender},#{loaner},#{type},
+        #{purpose},#{moreInfo,jdbcType=VARCHAR,typeHandler=com.wangpiece.ious.handler.NullValueHandler},#{status},#{cancelStatus},#{createTime},#{updateTime});
+    </insert>
+
+    <!--获取借款用户id和支付状态获取所有借款借条信息-->
+    <select id="getIousByLoanIousInfo" parameterType="Ious" resultType="Ious">
+        select *from ious where loanUserId = #{loanUserId} and cancelStatus=1
+        <!--列表不需要展示已支付的数据-->
+        <if test="status != null and status != 0">
+            and status!=#{status};
+        </if>
+        <!--查看总金额时-->
+        <if test="status == null or status == 0">
+            and status=3;
+        </if>
+    </select>
+
+    <!--通过出借用户id和支付状态获取所有出借借条信息-->
+    <select id="getIousByLendIousInfo" parameterType="Ious" resultType="Ious">
+        select *from ious where lendUserId = #{lendUserId} and cancelStatus=1
+        <!--列表不需要展示已支付的数据-->
+        <if test="status != null and status != 0">
+            and status!=#{status};
+        </if>
+        <!--查看总金额时-->
+        <if test="status == null or status == 0">
+            and status=3;
+        </if>
+    </select>
+    
+    <update id="updateCancelStatus" parameterType="Ious">
+        update ious set cancelStatus = #{cancelStatus} where id=#{id};
+    </update>
+
+    <update id="updateStatus" parameterType="Ious">
+        update ious set status = #{status},type=#{type},lendUserId=#{lendUserId},updateTime=#{updateTime} where id=#{id};
+    </update>
+
+    <update id="updateLoanUserId" parameterType="Ious">
+        update ious set loanUserId=#{loanUserId},type=#{type},updateTime=#{updateTime} where id=#{id};
+    </update>
+
+    <select id="getIousList" resultType="Ious" parameterType="Ious">
+        select *from ious where cancelStatus=1 and status=3
+        <if test="loadType == 1">
+            <!--获取借款借条信息-->
+            and loanUserId =${loanUserId}
+        </if>
+        <if test="loadType == 4">
+            <!--获取出借借条信息-->
+            and lendUserId =${lendUserId}
+        </if>
+        <if test="loadTimeType == 2">
+            <!--获取借款类型为7天的-->
+            and (to_days(returnTime)-to_days(loanTime))=6
+        </if>
+        <if test="loadTimeType == 3">
+            <!--获取借款类型为30天的-->
+            and (to_days(returnTime)-to_days(loanTime))=29
+        </if>
+        <!--关键字搜索，借款借条，匹配出借人-->
+        <if test="loadType == 1 and keyWord != null and keyWord != ''">
+            <bind name="tempKeyWord" value="'%'+keyWord+'%'" />
+            and lender like #{tempKeyWord}
+        </if>
+        <!--关键字搜索，出借借条，匹配借款人-->
+        <if test="loadType == 4 and keyWord != null and keyWord != ''">
+            <bind name="tempKeyWord" value="'%'+keyWord+'%'" />
+            and loaner like #{tempKeyWord}
+        </if>
+    </select>
+
+    <!--通过出借用户id和支付状态获取所有出借借条信息-->
+    <select id="getIousAndPostponeList" parameterType="Ious" resultMap="iousResult">
+        select i.*,p.postponeId,p.iousId,p.postponeRate,p.postponeTime,p.postponeStatus from ious i left join
+        (
+            select postpone.id as postponeId,postpone.iousId,postpone.postponeRate,postpone.postponeTime,postpone.postponeStatus,max(postpone.postponeTime) from postpone
+            where postpone.postponeStatus = 3 group by postpone.iousId
+        ) as  p
+        on i.id = p.iousId and p.postponeStatus = 3
+        where i.cancelStatus=1 and i.status=3
+        <if test="loadType == 1">
+            <!--获取借款借条信息-->
+            and i.loanUserId =${loanUserId}
+        </if>
+        <if test="loadType == 4">
+            <!--获取出借借条信息-->
+            and i.lendUserId =${lendUserId}
+        </if>
+        <if test="loadTimeType == 2">
+            <!--获取借款类型为7天的-->
+            and (to_days(i.returnTime)-to_days(i.loanTime))=6
+        </if>
+        <if test="loadTimeType == 3">
+            <!--获取借款类型为30天的-->
+            and (to_days(i.returnTime)-to_days(i.loanTime))=29
+        </if>
+        <!--关键字搜索，借款借条，匹配出借人-->
+        <if test="loadType == 1 and keyWord != null and keyWord != ''">
+            <bind name="tempKeyWord" value="'%'+keyWord+'%'" />
+            and i.lender like #{tempKeyWord}
+        </if>
+        <!--关键字搜索，出借借条，匹配借款人-->
+        <if test="loadType == 4 and keyWord != null and keyWord != ''">
+            <bind name="tempKeyWord" value="'%'+keyWord+'%'" />
+            and i.loaner like #{tempKeyWord}
+        </if>
+    </select>
+
+</mapper>

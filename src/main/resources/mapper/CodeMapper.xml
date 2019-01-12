@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpiece.ious.mapper.CodeMapper">
+
+    <select id="getSelectValueByPid" parameterType="Code" resultType="Code">
+        select * from code where pid = #{pid}
+        <if test="value != null">
+            and value=#{value}
+        </if>
+        order by value asc;
+    </select>
+
+</mapper>
