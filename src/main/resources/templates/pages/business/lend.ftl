@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>我是出借人</title>
+    <title>出借</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
     <meta name="format-detection" content="telephone=no, email=no" />
     <link rel="stylesheet" href="${iousRequestUrl}/lib/css/layer.css" type="text/css">
@@ -13,6 +13,7 @@
     <script src="${iousRequestUrl}/lib/js/jquery.base64.js"></script>
     <script src="${iousRequestUrl}/lib/js/layer.js"></script>
     <script src="${iousRequestUrl}/js/wapframwork.js"></script>
+    <script src="${iousRequestUrl}/js/common.js"></script>
     <style>
         .tradingPassword{width:4.8rem;height:1rem;border:1px solid #e6e6e6;text-align:center;font-size:0.3rem;}
         .forgetTradingPassword{float:right;margin-top:0.2rem;margin-right:0.4rem;}
@@ -32,7 +33,7 @@
             <li class="list_item">
                 <label>
                     <span class="item_text">借款金额</span>
-                    <input type="tel" name="money"  id="money" placeholder="借款金额" required minlength="1" maxlength="8"  >元
+                    <input type="text" name="money"  id="money" placeholder="借款金额" required minlength="1" maxlength="8"  >元
                 </label>
             </li>
             <li class="list_item">
@@ -99,17 +100,6 @@
 </body>
 
 <script type="text/javascript">
-    //同意协议
-    function agreeAgreement(obj) {
-        var isChecked = $('#agree').prop('checked');
-        if(isChecked){
-            $('#nextstep').removeClass('next_step_click_before');
-            $('#nextstep').addClass('next_step');
-        }else {
-            $('#nextstep').removeClass('next_step');
-            $('#nextstep').addClass('next_step_click_before');
-        }
-    }
     //发起借条
     function initiate() {
         var isChecked = $('#agree').prop('checked');
@@ -206,11 +196,9 @@
             tip('借款金额不能为空')
             return false;
         }
-        <!--var regular = "^[0-9]+\.?[0-9]*$";-->
-        var regular = "^[0-9]*$";
-        var reg = new RegExp(regular);
-        if (!checkNumber(money)){
-            tip('借款金额非法')
+
+        if(!validationNumber(money,2)){
+            tip('借款金额只能为数字且最多精确到两位小数');
             return false;
         }
 
@@ -226,72 +214,6 @@
 
         return true;
     }
-    //判断是否是数字
-    function checkNumber(value) {
-        var regular = "^[0-9]*$";
-        var reg = new RegExp(regular);
-        if (!reg.test(value)){
-            //不是数字
-            return false;
-        }else{
-             return true;
-        }
-    }
-    //判断交易密码是否合法
-    function checkPwd(){
-        var tradingPassword = $('#tradingPassword').val();
-        if(!tradingPassword){
-            tip('交易密码不能为空');
-            return false;
-        }
 
-        if(tradingPassword.length < 6 || tradingPassword.length > 6 || !checkNumber(tradingPassword)){
-            tip('交易密码为6位数字');
-            return false;
-        }
-
-        return true;
-    }
-
-    //借款协议
-    function loanAgreement(){
-        layer.open({
-             content: '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                      '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'
-            ,btn: '确定'
-            ,title: '借款协议'
-        });
-    }
-    //居间服务协议
-    function otherAgreement(){
-        layer.open({
-            content: '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'+
-                  '请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，'
-            ,btn: '确定'
-            ,title: '居间服务协议'
-        });
-    }
-    //提示
-    function tip(msg){
-        layer.open({
-            content: msg
-            ,skin: 'msg'
-            ,time: 2 //2秒后自动关闭
-        });
-    }
 </script>
 </html>

@@ -331,7 +331,7 @@ div,section,span,a,input,button,i,ul,li,label,header,footer,h1,h2,h3,h4,h5,h6,p,
 .find_loginPwd_wrap select{width: 5.3rem;font-size:0.32rem;border:0px solid red;margin-top:0.25rem;color:#999;}
 .find_loginPwd_wrap .item_text{width: 1.7rem;text-align: center;display: inline-block;color: #333;font-size: 0.3rem;}
 .find_loginPwd_wrap .getCodeBtn{width:2.7rem;background: #fff;border-left: 1px solid #dbe4eb;color: #ff9413;font-size: 0.3rem;}
-.find_loginPwd_wrap .next_step{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);border-radius: 0px;}
+.find_loginPwd_wrap .next_step{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);border-radius: 20px;}
 .find_loginPwd_wrap .next_step_click_before{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#999999 20%,#919191 40%,#999999 80%);border-radius: 20px;}
 .find_loginPwd_wrap .text_desc{width: 6.6rem;margin: 0 auto;color: #666;font-size: 0.28rem;line-height: 0.54rem;}
 .find_loginPwd_wrap .first_line,.find_loginPwd_wrap .second_line,.find_loginPwd_wrap .third_line{padding: 0 0.36rem;}

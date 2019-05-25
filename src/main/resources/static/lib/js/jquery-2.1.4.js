@@ -1170,7 +1170,7 @@
 
         if ( (support.qsa = rnative.test( doc.querySelectorAll )) ) {
           // Build QSA regex
-          // Regex strategy adopted from Diego Perini
+          // Regex dp01strategy adopted from Diego Perini
           assert(function( div ) {
             // Select is set to empty string on purpose
             // This is to test IE's treatment of not explicitly

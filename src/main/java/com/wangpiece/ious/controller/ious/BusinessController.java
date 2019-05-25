@@ -245,6 +245,11 @@ public class BusinessController extends BaseController{
         if(!userId.equals(loanUserId) && !userId.equals(lendUserId)){
             return BASEDIR + "/not_found_detail";
         }
+        Postpone postpone = postponeService.getByIousId(iousId);
+        if(postpone != null){
+            iousInfo.setReturnTime(postpone.getPostponeTime());
+        }
+
         model.addAttribute("ious",iousInfo);
         return BASEDIR + "/lend_list_item_detail";
     }

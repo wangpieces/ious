@@ -13,7 +13,7 @@ public class PostponeBO implements Serializable {
     private Integer	id;
     private Integer	iousId;
     private Integer	postponeRate;
-    private String	poastponeTime;
+    private String	postponeTime;
     private Integer	postponeStatus;
     private String	createTime;
     private String	updateTime;
@@ -48,12 +48,12 @@ public class PostponeBO implements Serializable {
         this.postponeRate = postponeRate;
     }
 
-    public String getPoastponeTime() {
-        return poastponeTime;
+    public String getPostponeTime() {
+        return postponeTime;
     }
 
-    public void setPoastponeTime(String poastponeTime) {
-        this.poastponeTime = poastponeTime;
+    public void setPostponeTime(String postponeTime) {
+        this.postponeTime = postponeTime;
     }
 
     public Integer getPostponeStatus() {

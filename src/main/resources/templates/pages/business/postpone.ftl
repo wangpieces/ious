@@ -77,7 +77,7 @@
                 <ul class="my_content_title" style="border:0px solid red;height:0.8rem;">
                     <li style="width:1.7rem;text-align:center;">${(temppostpone.money)!0} 元</li>
                     <li style="width:1.7rem;text-align:center;">${(temppostpone.postponeRateName)!''}</li>
-                    <li style="width:1.7rem;text-align:center;">${(temppostpone.poastponeTime)!''}</li>
+                    <li style="width:1.7rem;text-align:center;">${(temppostpone.postponeTime)!''}</li>
                     <li style="width:1.6rem;text-align:center;">${(temppostpone.postponeStatusName)!''}</li>
                 </ul>
             </#list>
@@ -91,7 +91,7 @@
             <li><span style="border-left:0.1rem solid #40bfff;margin-left:0rem;">&nbsp;&nbsp;展期操作</span></li>
         </ul>
         <ul class="my_content_title">
-            <li style="width:7.2rem;">延后到期日&nbsp;<input type="date" name="poastponeTime" id="poastponeTime" placeholder="延后到期日"  style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red;margin-top: 0.25rem;color: #999;" value="${dateTime!''}"></li>
+            <li style="width:7.2rem;">延后到期日&nbsp;<input type="date" name="postponeTime" id="postponeTime" placeholder="延后到期日"  style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red;margin-top: 0.25rem;color: #999;" value="${dateTime!''}"></li>
             <li style="width:7.2rem;">　展期利率
                 <select  name="postponeRate" id="postponeRate" style="width: 5.1rem;font-size: 0.32rem;border: 0px solid red; margin-top: 0.25rem;color: #999;">
                     <#if rateList??>
@@ -163,7 +163,7 @@ function updatePostponeStatus(postponeId){
 //发起展期
 function doPostPone(){
    layer.open({
-         content: '<span style="color:red;font-size:0.3rem;">展期到'+$('#poastponeTime').val()+',利率为'+$('#postponeRate').val()+'%</span>'
+         content: '<span style="color:red;font-size:0.3rem;">展期到'+$('#postponeTime').val()+',利率为'+$('#postponeRate').val()+'%</span>'
         ,btn: ['确定', '取消']
         ,title: '发起展期'
         ,yes: function(index){
@@ -244,20 +244,21 @@ function checkPwd(){
 //发起展期
 function postpone(){
 
-    var poastponeTime = $('#poastponeTime').val();
+    var postponeTime = $('#postponeTime').val();
     var postponeRate = $('#postponeRate').val();
     var id = $('#id').val();
 
     $.ajax({
         type: "POST",
         url: "${iousContextPath}/api/business/postpone",
-        data:{poastponeTime:poastponeTime,postponeRate:postponeRate,iousId:id},
+        data:{postponeTime:postponeTime,postponeRate:postponeRate,iousId:id},
         beforeSend: function(request) {
             request.setRequestHeader("Authorization", "${token!''}");
         },
         success: function(data) {
            if(data.successful){
                 tip('展期成功');
+
                 setTimeout(function(){location.reload()},1000);
            }else {
                 tip('展期失败，请重试');

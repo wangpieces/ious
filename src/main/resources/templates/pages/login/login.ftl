@@ -16,7 +16,7 @@
 <form action="${iousContextPath}/index" method="post" name="loginForm" id="loginForm" onsubmit="return check();">
     <div class="login_bg">
         <img src="${iousRequestUrl}/img/login_bg.png">
-        <input type="text" value="${sureIousUrl!''}" name="sureIousUrl">
+        <input type="hidden" value="${sureIousUrl!''}" name="sureIousUrl">
         <div>
             <div class="login_title" style="display: none;">
                 <a href="index.html">
