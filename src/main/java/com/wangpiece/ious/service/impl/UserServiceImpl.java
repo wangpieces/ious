@@ -6,6 +6,7 @@ import com.wangpiece.ious.mapper.UserMapper;
 import com.wangpiece.ious.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author wang.xu
@@ -44,6 +45,7 @@ public class UserServiceImpl implements IUserService {
      * @param user 需要保存的用户信息
      */
     @Override
+    @Transactional
     public void save(User user) {
         userMapper.save(user);
     }

@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class IousServiceImpl implements IIouService{
     private IPostponeService postponeService;
 
     @Override
+    @Transactional
     public Integer save(IousBO iousBO, UserBO userBO) {
         Ious ious = new Ious();
         BeanUtils.copyProperties(iousBO, ious);
@@ -180,6 +182,7 @@ public class IousServiceImpl implements IIouService{
      * @param iousBO
      */
     @Override
+    @Transactional
     public void updateCancelStatus(IousBO iousBO) {
         iousMapper.updateCancelStatus(iousBO);
     }
@@ -190,6 +193,7 @@ public class IousServiceImpl implements IIouService{
      * @param iousBO 借条信息
      */
     @Override
+    @Transactional
     public void updateStatus(IousBO iousBO) {
         iousMapper.updateStatus(iousBO);
     }
@@ -200,6 +204,7 @@ public class IousServiceImpl implements IIouService{
      * @param iousBO 借条信息
      */
     @Override
+    @Transactional
     public void updateLoanUserId(IousBO iousBO) {
         iousMapper.updateLoanUserId(iousBO);
     }

@@ -72,7 +72,7 @@
         </a>
     </li>
     <li class="footer-item">
-        <a href="personal.html" class="">
+        <a href="javascript:gotoPersonal()" class="">
             <i class="icon icon_my"></i>
             <p class="icon_title">我的</p>
         </a>
@@ -159,7 +159,6 @@ function lendMoneyList(){
  * 正在借款
  */
 function loanMoneyList(){
-
     $.ajax({
         type: "GET",
         url: "${iousContextPath}/api/business/loanMoneyList",
@@ -237,6 +236,11 @@ function gotoLendList(){
 //待还金额列表
 function gotoLoanList(){
      location.href='${iousContextPath}/business/loanList';
+}
+
+//我的
+function gotoPersonal(){
+    location.href='${iousContextPath}/personal';
 }
 
 </script>

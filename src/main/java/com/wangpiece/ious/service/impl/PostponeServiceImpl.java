@@ -17,6 +17,7 @@ import com.wangpiece.ious.vo.PostponeVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class PostponeServiceImpl implements IPostponeService{
      * @return
      */
     @Override
+    @Transactional
     public void savePosepone(PostponeVO postponeVO) {
 
         Ious iousInfo = iousMapper.getIousInfo(postponeVO.getIousId());
@@ -104,11 +106,12 @@ public class PostponeServiceImpl implements IPostponeService{
     }
 
     /**
-     * 修改展期专题
+     * 修改展期状态
      *
      * @param postpone
      */
     @Override
+    @Transactional
     public void updatePostponeStatus(Postpone postpone) {
         postponeMapper.updatePostponeStatus(postpone);
     }
