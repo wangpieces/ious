@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author wang.xu
@@ -129,6 +130,19 @@ public class LoginController extends BaseController{
         }
 
         return "redirect:"+iousContextPath + "/business/index";
+    }
+
+    /**
+     * 用户退出
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(Model model, LoginUserBO loginUserBO){
+        HttpSession session = request.getSession();
+        if(session != null){
+            session.invalidate();
+        }
+        return BASEDIR + "/login";
     }
 
 }

@@ -9,7 +9,7 @@ body{
     border-radius: 0.8rem;
     -moz-border-radius: 0.8rem;
     margin:0 auto;
-    background: #fff url('../images/head.png') no-repeat center center;
+    background: #fff url(../image/login-head.png) no-repeat center center;
     background-size: 0.68rem 0.82rem;
     -o-background-size:0.68rem 0.82rem ;
     -webkit-background-size: 0.68rem 0.82rem;
@@ -37,7 +37,7 @@ input[type="submit"]{
     margin-right: 0.3rem;
     line-height: 0.75rem;
     width: 6.3rem;
-    border-radius: 0.1rem;
+    border-radius: 0.5rem;
     height: 0.75rem;
     font-size: 0.26rem;
     background: #2d9cff;

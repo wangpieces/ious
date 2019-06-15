@@ -78,7 +78,7 @@
 <script type="text/javascript">
 
     function logout(){
-
+        location.href = '${iousContextPath}/logout'
     }
     //联系我们
     function gotoContactUs(){
