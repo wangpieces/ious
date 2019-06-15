@@ -2467,9 +2467,11 @@
 }
 
 .login_content .login_btn {
-    background-color: #fd6246;
+    /*background-color: #0197FF;*/
+    background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);
     margin-top: 0.6rem;
     border-radius: 0.5rem;
+    border:0px;
 }
 
 .login_content .register_btn {

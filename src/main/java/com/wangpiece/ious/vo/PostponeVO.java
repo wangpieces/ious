@@ -12,7 +12,7 @@ public class PostponeVO implements Serializable {
     private static final long serialVersionUID = -1274690428007986402L;
     private Integer	iousId;
     private Integer	postponeRate;
-    private String	poastponeTime;
+    private String	postponeTime;
 
     public Integer getIousId() {
         return iousId;
@@ -30,11 +30,11 @@ public class PostponeVO implements Serializable {
         this.postponeRate = postponeRate;
     }
 
-    public String getPoastponeTime() {
-        return poastponeTime;
+    public String getPostponeTime() {
+        return postponeTime;
     }
 
-    public void setPoastponeTime(String poastponeTime) {
-        this.poastponeTime = poastponeTime;
+    public void setPostponeTime(String postponeTime) {
+        this.postponeTime = postponeTime;
     }
 }

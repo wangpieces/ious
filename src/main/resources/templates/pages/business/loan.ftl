@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="${iousRequestUrl}/lib/css/layer.css" type="text/css">
     <link rel="stylesheet" href="${iousRequestUrl}/css/common.css" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="${iousRequestUrl}/css/personalCenter.css"/>
-    <script src="${iousRequestUrl}/lib/js/jquery-2.1.4.js"></script>
+    <script src="${iousRequestUrl}/lib/js/jquery-2.1.4.js"></script>wa
     <script src="${iousRequestUrl}/lib/js/jquery.base64.js"></script>
     <script src="${iousRequestUrl}/lib/js/layer.js"></script>
     <script src="${iousRequestUrl}/js/wapframwork.js"></script>
@@ -127,8 +127,8 @@
               '输入交易密码',
               'background-color: #40bfff; color:#fff;'
             ]
-            ,content: '<input type="tel" style="-webkit-text-security:disc" maxlength="6" class="tradingPassword" name="tradingPassword" id="tradingPassword" placeholder="输入6位交易密码"/>'+
-                      '<br/><a href="javascript:void(0)" class="forgetTradingPassword">忘记密码</a>'
+            ,content: '<input type="tel" style="-webkit-text-security:disc" maxlength="6" class="tradingPassword" name="tradingPassword" id="tradingPassword" placeholder="输入6位交易密码"/>'/*+
+                      '<br/><a href="javascript:void(0)" class="forgetTradingPassword">忘记密码</a>'*/
             ,btn: ['确定', '取消']
             ,shadeClose: false
             ,yes: function(index){

@@ -138,8 +138,8 @@ function inputPassword(id) {
           '输入交易密码',
           'background-color: #40bfff; color:#fff;'
         ]
-        ,content: '<input type="tel" style="-webkit-text-security:disc" maxlength="6" class="tradingPassword" name="tradingPassword" id="tradingPassword" placeholder="输入6位交易密码"/>'+
-                  '<br/><a href="javascript:void(0)" class="forgetTradingPassword">忘记密码</a>'
+        ,content: '<input type="tel" style="-webkit-text-security:disc" maxlength="6" class="tradingPassword" name="tradingPassword" id="tradingPassword" placeholder="输入6位交易密码"/>'/*+
+                  '<br/><a href="javascript:void(0)" class="forgetTradingPassword">忘记密码</a>'*/
         ,btn: ['确定', '取消']
         ,shadeClose: false
         ,yes: function(index){
