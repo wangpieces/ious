@@ -29,7 +29,7 @@
    &lt;!&ndash; <if from?? && from!="">1</if>
     <if !(from??)>2</if>&ndash;&gt;
 
-    <#if from?? && from=='index'>
+    <#if !(fromtype??) || (from?? && from=='index')>
         <a href="${iousContextPath}/business/index">
             <i class="icon"></i>
         </a>
@@ -326,7 +326,7 @@
             render: "canvas", //也可以替换为table
             width: 200, //宽度
             height:200, //高度
-            text: "${iousRequestUrl}/business/detail?iousId=${ious.id}&fromtype=${fromtype}&qrcode=qrcode"
+            text: "${iousRequestUrl}/business/detail?iousId=${ious.id}&fromtype=${fromtype!}&qrcode=qrcode"
         });
 
         var mycanvas1=document.getElementsByTagName('canvas')[0];
@@ -392,7 +392,7 @@
 
     function goback(){
 
-       <#if from?? && from=='index'>
+       <#if !(fromtype??) || (from?? && from=='index')>
             //从主页过来的
            location.href="${iousContextPath}/business/index";
         <#elseif fromtype==1>

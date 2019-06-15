@@ -278,7 +278,7 @@ function getQrcode(id, iousId){
         render: "canvas", //也可以替换为table
         width: 200, //宽度
         height:200, //高度
-        text: "${iousRequestUrl}/business/detail?iousId=iousId"
+        text: "${iousRequestUrl}/business/surepostpone?iousId="+iousId
     });
 
     var mycanvas1=document.getElementsByTagName('canvas')[0];

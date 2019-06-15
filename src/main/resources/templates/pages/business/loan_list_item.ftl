@@ -121,7 +121,7 @@
                 <ul class="my_content_title" style="border:0px solid red;height:0.8rem;">
                     <li style="width:1.7rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.money)!0} 元</li>
                     <li style="width:1.7rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeRateName)!''}</li>
-                    <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.poastponeTime)!''}</li>
+                    <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeTime)!''}</li>
                     <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeStatusName)!''}</li>
                 </ul>
             </#list>

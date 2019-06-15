@@ -58,6 +58,18 @@ public class LoginController extends BaseController{
             String sureIousUrl = "/business/detail?iousId="+iousId+"&fromtype="+fromtype+"&qrcode="+qrcode+"&from=index";
             model.addAttribute("sureIousUrl", sureIousUrl);
         }
+
+        //如果已经登录则不需要登录
+        if(request !=null){
+            HttpSession session = request.getSession(false);
+            if(session != null){
+                Object user = request.getSession().getAttribute("user");
+                if(user != null) {
+                    return "redirect:" + iousContextPath + "/business/index";
+                }
+            }
+        }
+
         return BASEDIR + "/login";
     }
 

@@ -76,7 +76,7 @@
             <ul class="my_content_title" style="border:0px solid red;height:0.8rem;">
                 <li style="width:1.7rem;text-align:center;">${(postpone.money)!0} 元</li>
                 <li style="width:1.7rem;text-align:center;">${(postpone.postponeRateName)!''}</li>
-                <li style="width:1.7rem;text-align:center;">${(postpone.poastponeTime)!''}</li>
+                <li style="width:1.7rem;text-align:center;">${(postpone.postponeTime)!''}</li>
                 <li style="width:1.6rem;text-align:center;">${(postpone.postponeStatusName)!''}</li>
             </ul>
         </#if>
@@ -98,9 +98,9 @@
     </li>
 </ul>
 <script type="text/javascript" charset="utf-8">
-function doPostPone(){
+/*function doPostPone(){
    layer.open({
-         content: '<span style="color:red;font-size:0.3rem;">展期到'+$('#poastponeTime').val()+',利率为'+$('#postponeRate').val()+'%</span>'
+         content: '<span style="color:red;font-size:0.3rem;">展期到'+$('#postponeTime').val()+',利率为'+$('#postponeRate').val()+'%</span>'
         ,btn: ['确定', '取消']
         ,title: '发起展期'
         ,yes: function(index){
@@ -108,7 +108,7 @@ function doPostPone(){
             inputPassword();
         }
     });
-}
+}*/
 
 
 //输入密码
@@ -181,14 +181,14 @@ function checkPwd(){
 //发起展期
 function postpone(){
 
-    var poastponeTime = $('#poastponeTime').val();
+    var postponeTime = $('#postponeTime').val();
     var postponeRate = $('#postponeRate').val();
     var id = $('#id').val();
 
     $.ajax({
         type: "POST",
         url: "${iousContextPath}/api/business/postpone",
-        data:{poastponeTime:poastponeTime,postponeRate:postponeRate,iousId:id},
+        data:{postponeTime:postponeTime,postponeRate:postponeRate,iousId:id},
         beforeSend: function(request) {
             request.setRequestHeader("Authorization", "${token!''}");
         },

@@ -266,7 +266,7 @@ public class IousServiceImpl implements IIouService{
                 allMoney += money;
                 if(days == 7){
                     day7Money += money;
-                }else{
+                }else if(days == 30){
                     day30Money += money;
                 }
             }

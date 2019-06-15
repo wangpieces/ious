@@ -107,9 +107,9 @@
 
     <!--通过出借用户id和支付状态获取所有出借借条信息-->
     <select id="getIousAndPostponeList" parameterType="Ious" resultMap="iousResult">
-        select i.*,p.postponeId,p.iousId,p.postponeRate,p.postponeTime,p.postponeStatus from ious i left join
+        select i.*,p.postponeId,p.iousId,p.postponeRate,p.maxPostponeTime postponeTime,p.postponeStatus from ious i left join
         (
-            select postpone.id as postponeId,postpone.iousId,postpone.postponeRate,postpone.postponeTime,postpone.postponeStatus,max(postpone.postponeTime) from postpone
+            select postpone.id as postponeId,postpone.iousId,postpone.postponeRate,postpone.postponeTime,postpone.postponeStatus,max(postpone.postponeTime) maxPostponeTime from postpone
             where postpone.postponeStatus = 3 group by postpone.iousId
         ) as  p
         on i.id = p.iousId and p.postponeStatus = 3
