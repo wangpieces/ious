@@ -83,7 +83,7 @@ public class IousController extends BaseController{
                         lendMoney += money;
                     }
                 }
-                resultMap.put("lendMoney", CalculateUtil.divide(lendMoney,100,2).doubleValue() + "");//出借的钱
+                resultMap.put("lendMoney", CalculateUtil.divide(lendMoney,100,2).stripTrailingZeros().toPlainString());//出借的钱
             }
 
             iousBO = new IousBO();
@@ -100,7 +100,7 @@ public class IousController extends BaseController{
                         loanMoney += money;
                     }
                 }
-                resultMap.put("loanMoney", CalculateUtil.divide(loanMoney,100,2).doubleValue() + "");//借的钱
+                resultMap.put("loanMoney", CalculateUtil.divide(loanMoney,100,2).stripTrailingZeros().toPlainString());//借的钱
             }
             result.setData(resultMap);
             result.setSuccessful(true);

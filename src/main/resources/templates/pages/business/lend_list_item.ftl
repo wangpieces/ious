@@ -63,7 +63,7 @@
             margin-top:0rem;
             background:white;
         }
-        .next_step{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);border-radius: 0px;}
+        .next_step{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);border-radius: 0.1rem;}
         .tradingPassword{width:4.8rem;height:1rem;border:1px solid #e6e6e6;text-align:center;font-size:0.3rem;}
         .forgetTradingPassword{float:right;margin-top:0.2rem;margin-right:0.4rem;}
     </style>

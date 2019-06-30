@@ -39,7 +39,7 @@
             line-height:1rem;
         }
 
-        .next_step{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);border-radius: 0px;}
+        .next_step{width: 6.7rem;height: 0.92rem;line-height: 0.92rem;display: block;text-align: center;color: #fff;font-size: 0.32rem;margin:0.34rem auto;background-image: -webkit-linear-gradient(0deg,#40bfff 20%,#0197ff 40%,#40bfff 80%);border-radius: 5px;}
         .tradingPassword{width:4.8rem;height:1rem;border:1px solid #e6e6e6;text-align:center;font-size:0.3rem;}
         .forgetTradingPassword{float:right;margin-top:0.2rem;margin-right:0.4rem;}
     </style>
@@ -67,18 +67,18 @@
             <li><span style="border-left:0.1rem solid #40bfff;margin-left:0rem;">&nbsp;&nbsp;展期历史</span></li>
         </ul>
         <ul class="my_content_title" style="height:0.8rem;">
-            <li style="width:1.7rem;text-align:center;">金额</li>
-            <li style="width:1.7rem;text-align:center;">利率</li>
-            <li style="width:1.7rem;text-align:center;">时间</li>
-            <li style="width:1.6rem;text-align:center;">状态</li>
+            <li style="width:1.9rem;text-align:center;">金额</li>
+            <li style="width:1.2rem;text-align:center;">利率</li>
+            <li style="width:1.8rem;text-align:center;">时间</li>
+            <li style="width:1.7rem;text-align:center;">状态</li>
         </ul>
         <#if postponeList??>
             <#list postponeList as temppostpone>
                 <ul class="my_content_title" style="border:0px solid red;height:0.8rem;">
-                    <li style="width:1.7rem;text-align:center;">${(temppostpone.money)!0} 元</li>
-                    <li style="width:1.7rem;text-align:center;">${(temppostpone.postponeRateName)!''}</li>
-                    <li style="width:1.7rem;text-align:center;">${(temppostpone.postponeTime)!''}</li>
-                    <li style="width:1.6rem;text-align:center;">${(temppostpone.postponeStatusName)!''}</li>
+                    <li style="width:1.9rem;text-align:center;">${(temppostpone.money)!0} 元</li>
+                    <li style="width:1.2rem;text-align:center;">${(temppostpone.postponeRateName)!''}</li>
+                    <li style="width:1.8rem;text-align:center;">${(temppostpone.postponeTime)!''}</li>
+                    <li style="width:1.7rem;text-align:center;">${(temppostpone.postponeStatusName)!''}</li>
                 </ul>
             </#list>
         </#if>
@@ -91,15 +91,23 @@
             <li><span style="border-left:0.1rem solid #40bfff;margin-left:0rem;">&nbsp;&nbsp;展期操作</span></li>
         </ul>
         <ul class="my_content_title">
-            <li style="width:7.2rem;">延后到期日&nbsp;<input type="date" name="postponeTime" id="postponeTime" placeholder="延后到期日"  style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red;margin-top: 0.25rem;color: #999;" value="${dateTime!''}"></li>
-            <li style="width:7.2rem;">　展期利率
-                <select  name="postponeRate" id="postponeRate" style="width: 5.1rem;font-size: 0.32rem;border: 0px solid red; margin-top: 0.25rem;color: #999;">
-                    <#if rateList??>
-                        <#list rateList as rate>
-                            <option value="${rate.value}">${rate.name}</option>
-                        </#list>
-                    </#if>
-                </select>
+            <li style="width:7.2rem;border:0px solid red;display: flex;">
+                <span style="width:1.6rem;display: inline-block;">延后到期日</span>
+                <span style="width:4.8rem;display: inline-block;">
+                    <input type="date" name="postponeTime" id="postponeTime" style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red;margin-top: 0rem;color: #999;" value="${dateTime!''}" />
+                </span>
+            </li>
+            <li style="width:7.2rem;border:0px solid red;display: flex;">
+                <span style="width:1.6rem;display: inline-block;">　展期利率</span>
+                <span style="width:4.8rem;display: inline-block;">
+                    <select  name="postponeRate" id="postponeRate" style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red; margin-top: 0rem;color: #999;">
+                        <#if rateList??>
+                            <#list rateList as rate>
+                                <option value="${rate.value}">${rate.name}</option>
+                            </#list>
+                        </#if>
+                    </select>
+                </span>
             </li>
         </ul>
     </div>

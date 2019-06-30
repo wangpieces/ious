@@ -270,9 +270,9 @@ public class IousServiceImpl implements IIouService{
                     day30Money += money;
                 }
             }
-            resultMap.put("allMoney",CalculateUtil.divide(allMoney, 100,2).doubleValue() +"");
-            resultMap.put("day7Money",CalculateUtil.divide(day7Money, 100,2).doubleValue() +"");
-            resultMap.put("day30Money",CalculateUtil.divide(day30Money, 100,2).doubleValue() +"");
+            resultMap.put("allMoney",CalculateUtil.divide(allMoney, 100,2).stripTrailingZeros().toPlainString());
+            resultMap.put("day7Money",CalculateUtil.divide(day7Money, 100,2).stripTrailingZeros().toPlainString());
+            resultMap.put("day30Money",CalculateUtil.divide(day30Money, 100,2).stripTrailingZeros().toPlainString());
         }else{
             resultMap.put("allMoney","0.00");
             resultMap.put("day7Money","0.00");

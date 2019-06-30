@@ -111,16 +111,16 @@
 
     <div style="width:7.5rem;border-bottom:1px solid #eff0f1;min-height:0.8rem;background:#ffffff;margin-top:0.3rem;display:none;" id="postponeList">
         <ul class="my_content_title" style="height:0.8rem;">
-            <li style="width:1.7rem;text-align:center;height:0.8rem;line-height:0.8rem;">金额</li>
-            <li style="width:1.7rem;text-align:center;height:0.8rem;line-height:0.8rem;">利率</li>
+            <li style="width:2rem;text-align:center;height:0.8rem;line-height:0.8rem;">金额</li>
+            <li style="width:1.4rem;text-align:center;height:0.8rem;line-height:0.8rem;">利率</li>
             <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;">时间</li>
             <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;">状态</li>
         </ul>
         <#if postponeList??>
             <#list postponeList as postpone>
                 <ul class="my_content_title" style="border:0px solid red;height:0.8rem;">
-                    <li style="width:1.7rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.money)!0} 元</li>
-                    <li style="width:1.7rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeRateName)!''}</li>
+                    <li style="width:2rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.money)!0} 元</li>
+                    <li style="width:1.4rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeRateName)!''}</li>
                     <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeTime)!''}</li>
                     <li style="width:1.8rem;text-align:center;height:0.8rem;line-height:0.8rem;font-size:0.3rem;">${(postpone.postponeStatusName)!''}</li>
                 </ul>
