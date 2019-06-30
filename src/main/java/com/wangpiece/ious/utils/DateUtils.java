@@ -15,6 +15,9 @@ import java.util.Calendar;
  */
 public class DateUtils {
 
+    public static final String PATTERN_SHORT = "yyyy-MM-dd";
+    public static final String PATTERN_LONG= "YYYY-MM-dd HH:mm:ss";
+
     /**
      * 获取当前时间
      * @param pattern
@@ -22,7 +25,7 @@ public class DateUtils {
      */
     public static String getCurrentDate(String pattern) {
         if(StringUtils.isEmpty(pattern)){
-            pattern = "YYYY-MM-dd HH:mm:ss";
+            pattern = PATTERN_LONG;
         }
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(pattern));
     }
@@ -32,7 +35,7 @@ public class DateUtils {
      * @return
      */
     public static String getCurrentDate() {
-        return getCurrentDate("YYYY-MM-dd HH:mm:ss");
+        return getCurrentDate(PATTERN_LONG);
     }
 
     /**
@@ -43,7 +46,7 @@ public class DateUtils {
      */
     public static Integer getDays(String beginTime, String endTime){
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PATTERN_SHORT);
             long tempBegintime = simpleDateFormat.parse(beginTime).getTime();
             long tempEndTime = simpleDateFormat.parse(endTime).getTime();
             int days = (int) ((tempEndTime -tempBegintime) / (1000*3600*24));
@@ -60,8 +63,19 @@ public class DateUtils {
      * @return
      */
     public static Integer getDays(String endTime){
-        String beginTime = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String beginTime = LocalDate.now().format(DateTimeFormatter.ofPattern(PATTERN_SHORT));
         return getDays(beginTime,endTime);
+    }
+
+    /**
+     * 获取几天前或者几天后的时间
+     * @param day
+     * @return
+     */
+    public static String getPlusDays(Integer day){
+        LocalDate localDate = LocalDate.now().plusDays(day-1);
+        String plusDay = localDate.format(DateTimeFormatter.ofPattern(PATTERN_SHORT));
+        return plusDay;
     }
 
 
@@ -72,8 +86,11 @@ public class DateUtils {
 //        System.out.println( ZonedDateTime.now());
 //        System.out.println( Instant.now());
 
-        System.out.println(getDays("2018-12-29"));
-        System.out.println(getDays("2018-12-17","2018-12-29"));
-        System.out.println(getDays("2018-12-29","2018-12-17"));
+//        System.out.println(getDays("2018-12-29"));
+//        System.out.println(getDays("2018-12-17","2018-12-29"));
+//        System.out.println(getDays("2018-12-29","2018-12-17"));
+        getPlusDays(7);
+        getPlusDays(1);
+        getPlusDays(2);
     }
 }

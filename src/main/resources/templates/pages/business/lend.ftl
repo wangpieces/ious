@@ -51,13 +51,13 @@
             <li class="list_item">
                 <label>
                     <span class="item_text">借款日期</span>
-                    <input type="date" name="loanTime" id="loanTime" placeholder="借款日期"  style="width:5.0rem;" value="${dateTime}">
+                    <input type="date" name="loanTime" id="loanTime" placeholder="借款日期"  style="width:5.0rem;" value="${beginTime}">
                 </label>
             </li>
             <li class="list_item">
                 <label>
                     <span class="item_text">还歀日期</span>
-                    <input type="date" name="returnTime" id="returnTime" placeholder="借款日期" style="width:5.0rem;" value="${dateTime}">
+                    <input type="date" name="returnTime" id="returnTime" placeholder="还歀日期" style="width:5.0rem;" value="${endTime}">
                 </label>
             </li>
             <li class="list_item">

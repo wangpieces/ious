@@ -67,8 +67,10 @@ public class BusinessController extends BaseController{
      */
     @GetMapping("/loan")
     public String gotoLoan(Model model) {
-        String dateTime = DateUtils.getCurrentDate("YYYY-MM-dd");
-        model.addAttribute("dateTime", dateTime);
+        String beginTime = DateUtils.getCurrentDate(DateUtils.PATTERN_SHORT);
+        String endTime = DateUtils.getPlusDays(7);
+        model.addAttribute("beginTime", beginTime);
+        model.addAttribute("endTime", endTime);
         //借款用途
         List<Code> purposeList = codeService.getSelectValueByPid(1,null);
         //借款利率
@@ -159,8 +161,11 @@ public class BusinessController extends BaseController{
      */
     @GetMapping("/lend")
     public String gotoLend(Model model) {
-        String dateTime = DateUtils.getCurrentDate("YYYY-MM-dd");
-        model.addAttribute("dateTime", dateTime);
+        String beginTime = DateUtils.getCurrentDate(DateUtils.PATTERN_SHORT);
+        String endTime = DateUtils.getPlusDays(7);
+
+        model.addAttribute("beginTime", beginTime);
+        model.addAttribute("endTime", endTime);
         //借款用途
         List<Code> purposeList = codeService.getSelectValueByPid(1, null);
         //借款利率
