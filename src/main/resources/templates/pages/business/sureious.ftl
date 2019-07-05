@@ -37,7 +37,7 @@
         <li class="list_item">
             <label>
                 <span class="item_text">　借款人</span>
-                <span class="showcontent">${(ious.loaner)!""}<a href="javascript:loanAgreement()">&nbsp;查看详情</a></span>
+                <span class="showcontent">${(ious.loaner)!""}<#--<a href="javascript:loanAgreement()">&nbsp;查看详情</a>--></span>
             </label>
         </li>
         <li class="list_item">

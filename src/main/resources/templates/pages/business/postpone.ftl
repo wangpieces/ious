@@ -94,13 +94,13 @@
             <li style="width:7.2rem;border:0px solid red;display: flex;">
                 <span style="width:1.6rem;display: inline-block;">延后到期日</span>
                 <span style="width:4.8rem;display: inline-block;">
-                    <input type="date" name="postponeTime" id="postponeTime" style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red;margin-top: 0rem;color: #999;" value="${dateTime!''}" />
+                    <input type="date" name="postponeTime" id="postponeTime" style="width: 5.0rem;font-size: 0.32rem;border: 0px solid red;margin-top: 0rem;color: #999;" value="${dateTime!''}" />
                 </span>
             </li>
             <li style="width:7.2rem;border:0px solid red;display: flex;">
                 <span style="width:1.6rem;display: inline-block;">　展期利率</span>
                 <span style="width:4.8rem;display: inline-block;">
-                    <select  name="postponeRate" id="postponeRate" style="width: 4.8rem;font-size: 0.32rem;border: 0px solid red; margin-top: 0rem;color: #999;">
+                    <select  name="postponeRate" id="postponeRate" style="width: 5.0rem;font-size: 0.32rem;border: 0px solid red; margin-top: 0rem;color: #999;">
                         <#if rateList??>
                             <#list rateList as rate>
                                 <option value="${rate.value}">${rate.name}</option>
@@ -316,6 +316,14 @@ function tip(msg){
         ,time: 2 //2秒后自动关闭
     });
 }
+
+$(function () {
+    var os = getOs();
+    alert(os);
+    if(os == 'ios'){
+        $('#postponeRate').css('width','5.3rem');
+    }
+});
 </script>
 </body>
 

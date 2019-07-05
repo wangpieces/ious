@@ -33,7 +33,7 @@
             <li class="list_item">
                 <label>
                     <span class="item_text">借款金额</span>
-                    <input type="text" name="money"  id="money" placeholder="借款金额" required minlength="1" maxlength="8"  >元
+                    <input type="text" name="money"  id="money" placeholder="借款金额" required minlength="1" maxlength="8" onblur="caculatPrincipal()" >元
                 </label>
             </li>
             <li class="list_item">
@@ -51,19 +51,19 @@
             <li class="list_item">
                 <label>
                     <span class="item_text">借款日期</span>
-                    <input type="date" name="loanTime" id="loanTime" placeholder="借款日期"  style="width:5.0rem;" value="${beginTime}">
+                    <input type="date" name="loanTime" id="loanTime" placeholder="借款日期"  style="width:5.0rem;" value="${beginTime}" onchange="caculatPrincipal()">
                 </label>
             </li>
             <li class="list_item">
                 <label>
                     <span class="item_text">还歀日期</span>
-                    <input type="date" name="returnTime" id="returnTime" placeholder="还歀日期" style="width:5.0rem;" value="${endTime}">
+                    <input type="date" name="returnTime" id="returnTime" placeholder="还歀日期" style="width:5.0rem;" value="${endTime}" onchange="caculatPrincipal()">
                 </label>
             </li>
             <li class="list_item">
                 <label>
                     <span class="item_text">年化利率</span>
-                    <select  name="rate" id="rate">
+                    <select  name="rate" id="rate" onchange="calculateBx()">
                         <#if rateList??>
                             <#list rateList as rate>
                                 <option value="${rate.value}">${rate.name}</option>
@@ -73,8 +73,8 @@
                 </label>
             </li>
             <li class="list_item">
-                <label style="float:right;margin-right:0.3rem;font-size:0.3rem;color:#888;">
-                    本金<span id="principal">100</span>+利息<span id="interest">1</span>=到期本息<span id="totalMoney" style="color:red;">101</span>元
+                <label style="float:right;margin-right:0.3rem;font-size:0.25rem;color:#888;">
+                    本金<span id="principal">0</span>+利息<span id="interest">0</span>=到期本息<span id="totalMoney" style="color:red;">0</span>元
                 </label>
             </li>
             <li class="list_item">
@@ -100,6 +100,7 @@
 </body>
 
 <script type="text/javascript">
+
     //发起借条
     function initiate() {
         var isChecked = $('#agree').prop('checked');
@@ -199,6 +200,15 @@
 
         if(!validationNumber(money,2)){
             tip('借款金额只能为数字且最多精确到两位小数');
+            return false;
+        }
+
+        var loanTime = $('#loanTime').val();
+        var returnTime = $('#returnTime').val();
+        var tempLoanDate = new Date(loanTime);
+        var tempReturnDate = new Date(returnTime);
+        if(tempLoanDate.getTime() > tempReturnDate.getTime()){
+            tip('还歀时间不能小于借款时间')
             return false;
         }
 
