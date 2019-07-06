@@ -17,7 +17,7 @@
     </insert>
 
     <insert id="registerUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into user(name,password,tradingPassword,phone,createTime,updateTime) values(#{name},#{password},#{tradingPassword},#{phone},#{createTime},#{updateTime});
+        insert into user(name,userName,password,tradingPassword,phone,createTime,updateTime) values(#{name},#{userName},#{password},#{tradingPassword},#{phone},#{createTime},#{updateTime});
     </insert>
 
     <select id="getUserByPwd" parameterType="User" resultType="User">
@@ -27,4 +27,8 @@
     <select id="getUserByTradingPwd" parameterType="User" resultType="User">
         select * from user where id = #{id} and tradingPassword=#{tradingPassword};
     </select>
+
+    <update id="saveForgetPassword" parameterType="User">
+        update user set password=#{password},updateTime=#{updateTime} where phone=#{phone};
+    </update>
 </mapper>

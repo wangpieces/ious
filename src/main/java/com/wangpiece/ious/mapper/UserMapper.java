@@ -49,4 +49,10 @@ public interface UserMapper {
      * @param user
      */
     void registerUser(User user);
+
+    /**
+     * 忘记密码
+     * @param user
+     */
+    void saveForgetPassword(User user);
 }

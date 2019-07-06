@@ -81,4 +81,14 @@ public class UserServiceImpl implements IUserService {
     public void registerUser(User user) {
         userMapper.registerUser(user);
     }
+
+    /**
+     * 忘记密码
+     *
+     * @param user
+     */
+    @Override
+    public void saveForgetPassword(User user) {
+        userMapper.saveForgetPassword(user);
+    }
 }

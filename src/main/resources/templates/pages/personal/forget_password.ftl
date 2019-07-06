@@ -20,13 +20,13 @@
 </head>
 <body>
 <header><span onclick="gotoLogin()"></span>忘记密码</header>
-<form action="${iousContextPath}/saveRegister" method="post" name="registerForm" id="registerForm" onsubmit="return check();">
+<form action="${iousContextPath}/saveForgetPassword" method="post" name="registerForm" id="registerForm" onsubmit="return check();">
     <ul class="form">
         <li><input type="text" placeholder="请输入手机号" value="${(registerInfo.phone)!""}" id="phone" name="phone" minlength="11" maxlength="11" required/></li>
         <li><input type="text" placeholder="请输入验证码" value="${(registerInfo.code)!""}" id="code" name="code" minlength="4" maxlength="4" required style="width: 65%" /><span id="confirm">获取验证码</span></li>
-        <li><input type="password" placeholder="请输入登录密码(6-20个字符,不能有空格)" id="tempPassword" minlength="6" maxlength="20" required/>
+        <li><input type="password" placeholder="请输入新密码(6-20个字符,不能有空格)" id="tempPassword" minlength="6" maxlength="20" required/>
             <input type="hidden" id="password" name="password"/></li>
-        <li><input type="password" placeholder="请确认登录密码(6-20个字符,不能有空格)" id="tempSurePassword" minlength="6" maxlength="20" required/>
+        <li><input type="password" placeholder="请确认新密码(6-20个字符,不能有空格)" id="tempSurePassword" minlength="6" maxlength="20" required/>
             <input type="hidden" id="surePassword" name="surePassword"/></li>
         <li><input type="submit" value="修&nbsp;&nbsp;&nbsp;&nbsp;改"/></li>
         <li style="color:red;text-align: center">${errorMsg!""}</li>
@@ -71,34 +71,34 @@
         var allLetReg = /^[A-Za-z]*$/;
         //先做验证
         if ($.trim(_$txtNewPwd.val()) == "") {
-            tip('请输入登录密码');
+            tip('请输入新密码');
             return false;
         }
         else {
             var pwdStr = $.trim(_$txtNewPwd.val()).split(" ");
             if (pwdStr.length != 1) {
-                tip('登录密码长度在6-20个字符之间，不能有空格');
+                tip('新密码长度在6-20个字符之间，不能有空格');
                 return false;
             }
             else {
                 if ($.trim(_$txtNewPwd.val()).length < 6 || $.trim(_$txtNewPwd.val()).length > 20) {
-                    tip('登录密码长度在6-20个字符之间，不能有空格');
+                    tip('新密码长度在6-20个字符之间，不能有空格');
                     return false;
                 }
                 else {
                     if (allNumReg.test($.trim(_$txtNewPwd.val()))) {
-                        tip('登录密码不能全部为数字');
+                        tip('新密码不能全部为数字');
                         return false;
                     }
                     if (allLetReg.test($.trim(_$txtNewPwd.val()))) {
-                        tip('登录密码不能全部为字母');
+                        tip('新密码不能全部为字母');
                         return false;
                     }
                 }
             }
         }
         if ($.trim(_$txtReNewPwd.val()) != $.trim(_$txtNewPwd.val())) {
-            tip('确认登录密码与登录密码不一致');
+            tip('确认新密码与新密码不一致');
             return false;
         }
         return true;

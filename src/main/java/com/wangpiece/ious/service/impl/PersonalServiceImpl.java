@@ -80,9 +80,21 @@ public class PersonalServiceImpl implements IPersonalService {
         User user = new User();
         String currentTime = DateUtils.getCurrentDate();
         BeanUtils.copyProperties(registerInfoVO, user);
+        user.setUserName(user.getName());
         user.setUpdateTime(currentTime);
         user.setCreateTime(currentTime);
         userService.registerUser(user);
+        return true;
+    }
+
+    @Override
+    public Boolean saveForgetPassword(RegisterInfoVO registerInfoVO) throws Exception {
+
+        User user = new User();
+        String currentTime = DateUtils.getCurrentDate();
+        BeanUtils.copyProperties(registerInfoVO, user);
+        user.setUpdateTime(currentTime);
+        userService.saveForgetPassword(user);
         return true;
     }
 }

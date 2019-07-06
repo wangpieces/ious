@@ -184,4 +184,59 @@ public class PersonalController extends BaseController{
         return "pages/login/login";
     }
 
+    /**
+     * 忘记密码
+     * @param registerInfoVO
+     * @return
+     */
+    @PostMapping("/saveForgetPassword")
+    public String saveForgetPassword(Model model,RegisterInfoVO registerInfoVO){
+
+        String code = registerInfoVO.getCode();
+        String phone = registerInfoVO.getPhone();
+        String password = registerInfoVO.getPassword();
+        String surePassword = registerInfoVO.getSurePassword();
+
+        if(StringUtils.isEmpty(phone) || StringUtils.isEmpty(code)
+                || StringUtils.isEmpty(password) || StringUtils.isEmpty(surePassword)){
+            LOGGER.info("信息不完整", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","信息不完整，请将信息填写完整");
+            return BASEDIR + "/forget_password";
+        }
+
+        if(!password.equals(surePassword)){
+            LOGGER.info("确认新密码与新密码不一致", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","确认新密码与新密码不一致");
+            return BASEDIR + "/forget_password";
+        }
+
+
+        User user = userService.getUserByPhone(phone);
+        if(user == null){
+            LOGGER.info("用户不存在存在", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","该手机号未注册，请重试");
+            return BASEDIR + "/forget_password";
+        }
+        //@TODO校验验证码对不对
+
+        try{
+            //md5加密，登录密码
+            byte[] tempPwdBytes = Base64Utils.decodeFromString(password);
+            String tempPwd = new String(tempPwdBytes,"UTF-8");
+            String md5Pwd = DigestUtils.md5DigestAsHex(tempPwd.getBytes("UTF-8"));
+            registerInfoVO.setPassword(md5Pwd);
+
+            personalService.saveForgetPassword(registerInfoVO);
+        }catch (Exception e){
+            LOGGER.error("内部出错", e);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","网络出错，请刷新重试");
+            return BASEDIR + "/forget_password";
+        }
+        return "pages/login/login";
+    }
+
 }

@@ -19,4 +19,6 @@ public interface IPersonalService {
    void savePwd(UserBO userBO, SavePwdVO savePwdVO);
 
    Boolean saveRegister(RegisterInfoVO registerInfoVO) throws Exception;
+
+   Boolean saveForgetPassword(RegisterInfoVO registerInfoVO) throws Exception;
 }
