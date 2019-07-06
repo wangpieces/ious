@@ -3,13 +3,19 @@ package com.wangpiece.ious.controller.personal;
 import com.wangpiece.ious.annotation.NeedToken;
 import com.wangpiece.ious.common.CommonResult;
 import com.wangpiece.ious.controller.BaseController;
+import com.wangpiece.ious.dto.User;
 import com.wangpiece.ious.service.IPersonalService;
+import com.wangpiece.ious.service.IUserService;
+import com.wangpiece.ious.vo.RegisterInfoVO;
 import com.wangpiece.ious.vo.SavePwdVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Base64Utils;
+import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,6 +34,9 @@ public class PersonalController extends BaseController{
     @Autowired
     private IPersonalService personalService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      * 到个人中心
      * @return
@@ -44,6 +53,24 @@ public class PersonalController extends BaseController{
     @GetMapping("/contactUs")
     public String contactUs(Model model){
         return BASEDIR + "/contact_us";
+    }
+
+    /**
+     * 用户注册
+     * @return
+     */
+    @GetMapping("/register")
+    public String register(){
+        return BASEDIR + "/register";
+    }
+
+    /**
+     * 用户注册
+     * @return
+     */
+    @GetMapping("/forgetPassword")
+    public String forgetPassword(){
+        return BASEDIR + "/forget_password";
     }
 
     /**
@@ -84,6 +111,77 @@ public class PersonalController extends BaseController{
             result.setMessage(e.getMessage());
         }
         return result;
+    }
+
+    /**
+     * 用户注册
+     * @param registerInfoVO
+     * @return
+     */
+    @PostMapping("/saveRegister")
+    public String saveRegister(Model model,RegisterInfoVO registerInfoVO){
+
+        String phone = registerInfoVO.getPhone();
+        String code = registerInfoVO.getCode();
+        String name = registerInfoVO.getName();
+        String password = registerInfoVO.getPassword();
+        String surePassword = registerInfoVO.getSurePassword();
+        String tradingPassword = registerInfoVO.getTradingPassword();
+        String sureTradingPassword = registerInfoVO.getSureTradingPassword();
+
+        if(StringUtils.isEmpty(phone) || StringUtils.isEmpty(code) || StringUtils.isEmpty(name)
+                || StringUtils.isEmpty(password) || StringUtils.isEmpty(surePassword)
+                || StringUtils.isEmpty(tradingPassword) || StringUtils.isEmpty(sureTradingPassword)){
+            LOGGER.info("信息不完整", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","信息不完整，请将信息填写完整");
+            return BASEDIR + "/register";
+        }
+
+        if(!password.equals(surePassword)){
+            LOGGER.info("确认登录密码与登录密码不一致", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","确认登录密码与登录密码不一致");
+            return BASEDIR + "/register";
+        }
+
+        if(!tradingPassword.equals(sureTradingPassword)){
+            LOGGER.info("确认交易密码与交易密码不一致", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","确认交易密码与交易密码不一致");
+            return BASEDIR + "/register";
+        }
+
+        User user = userService.getUserByPhone(phone);
+        if(user != null){
+            LOGGER.info("用户已经存在，不能重复注册", registerInfoVO);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","该手机号已经注册过，不能重复注册");
+            return BASEDIR + "/register";
+        }
+        //@TODO校验验证码对不对
+
+        try{
+            //md5加密，登录密码
+            byte[] tempPwdBytes = Base64Utils.decodeFromString(password);
+            String tempPwd = new String(tempPwdBytes,"UTF-8");
+            String md5Pwd = DigestUtils.md5DigestAsHex(tempPwd.getBytes("UTF-8"));
+
+            //md5加密,交易密码
+            byte[] tempTradingPwdBytes = Base64Utils.decodeFromString(tradingPassword);
+            String tempTradingPwd = new String(tempTradingPwdBytes,"UTF-8");
+            String md5TradingPwd = DigestUtils.md5DigestAsHex(tempTradingPwd.getBytes("UTF-8"));
+
+            registerInfoVO.setPassword(md5Pwd);
+            registerInfoVO.setTradingPassword(md5TradingPwd);
+            personalService.saveRegister(registerInfoVO);
+        }catch (Exception e){
+            LOGGER.error("内部出错", e);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","网络出错，请刷新重试");
+            return BASEDIR + "/register";
+        }
+        return "pages/login/login";
     }
 
 }

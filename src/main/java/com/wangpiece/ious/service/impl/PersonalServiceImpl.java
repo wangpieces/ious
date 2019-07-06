@@ -4,9 +4,12 @@ import com.wangpiece.ious.bo.UserBO;
 import com.wangpiece.ious.dto.User;
 import com.wangpiece.ious.service.IPersonalService;
 import com.wangpiece.ious.service.IUserService;
+import com.wangpiece.ious.utils.DateUtils;
+import com.wangpiece.ious.vo.RegisterInfoVO;
 import com.wangpiece.ious.vo.SavePwdVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,5 +71,18 @@ public class PersonalServiceImpl implements IPersonalService {
             userService.save(user);
         }
 
+    }
+
+    @Override
+    @Transactional
+    public Boolean saveRegister(RegisterInfoVO registerInfoVO) throws Exception {
+
+        User user = new User();
+        String currentTime = DateUtils.getCurrentDate();
+        BeanUtils.copyProperties(registerInfoVO, user);
+        user.setUpdateTime(currentTime);
+        user.setCreateTime(currentTime);
+        userService.registerUser(user);
+        return true;
     }
 }

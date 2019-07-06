@@ -27,6 +27,15 @@
             $('#password').val(temppassword);
             return true;
         }
+        //注册
+        function register(){
+            location.href = '${iousContextPath}/register';
+        }
+
+        //忘记密码
+        function forgetPassword(){
+            location.href = '${iousContextPath}/forgetPassword';
+        }
 
         (function (doc, win) {
             var docEl = doc.documentElement,
@@ -47,17 +56,15 @@
     <#--<header><span onclick="javascript:history.go(-1)"></span>登录</header>-->
     <input type="hidden" value="${sureIousUrl!''}" name="sureIousUrl">
     <div class="head"></div>
-    <form action="">
-        <ul class="form">
-            <li><input type="text" name="phone" id="phone" placeholder="请输入手机号" value="${phone!''}" minlength="11" maxlength="11" required/></li>
-            <li><input type="password" id="temppassword" placeholder="请输入密码"  value="" minlength="6" maxlength="18" required/>
-                <input type="hidden" id="password" name="password"/></li>
-            <li><input type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"/></li>
-        </ul>
-    </form>
+    <ul class="form">
+        <li><input type="text" name="phone" id="phone" placeholder="请输入手机号" value="${phone!''}" minlength="11" maxlength="11" required/></li>
+        <li><input type="password" id="temppassword" placeholder="请输入密码(6-20个字符,不能有空格)"  value="" minlength="6" maxlength="20" required/>
+            <input type="hidden" id="password" name="password"/></li>
+        <li><input type="submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录"/></li>
+    </ul>
     <ul class="fix miss">
-        <li class="l"><a href="javascript:void(0)">忘记密码？</a></li>
-        <li class="r"><a href="javascript:void(0)">账号注册</a></li>
+        <li class="l"><a href="javascript:forgetPassword()">忘记密码？</a></li>
+        <li class="r"><a href="javascript:register()">账号注册</a></li>
     </ul>
     <div id="fifth" class="g6" style="color:orangered;text-align: center;">${errorMsg!""}</span></div>
     <#-- <div id="fifth" class="g6"><span class="mr20"></span>第三方登录<span class="ml20"></span></div>

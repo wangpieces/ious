@@ -16,6 +16,10 @@
         insert into user(openId,createTime,updateTime) values(#{openId},#{createTime},#{updateTime});
     </insert>
 
+    <insert id="registerUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(name,password,tradingPassword,phone,createTime,updateTime) values(#{name},#{password},#{tradingPassword},#{phone},#{createTime},#{updateTime});
+    </insert>
+
     <select id="getUserByPwd" parameterType="User" resultType="User">
         select * from user where phone = #{phone} and password=#{password};
     </select>

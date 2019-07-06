@@ -141,7 +141,7 @@
         else {
             var pwdStr = $.trim(_$txtNewPwd.val()).split(" ");
             if (pwdStr.length != 1) {
-                tip('交易密码长度为6个位数字，且不能有空格');
+                tip('交易密码长度为6位数字，且不能有空格');
                 return false;
             }
             else {

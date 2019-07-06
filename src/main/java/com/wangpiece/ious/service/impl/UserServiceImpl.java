@@ -71,4 +71,14 @@ public class UserServiceImpl implements IUserService {
     public User getUserByTradingPwd(UserBO userBO) {
         return userMapper.getUserByTradingPwd(userBO);
     }
+
+    /**
+     * 注册用户
+     *
+     * @param user
+     */
+    @Override
+    public void registerUser(User user) {
+        userMapper.registerUser(user);
+    }
 }

@@ -43,4 +43,10 @@ public interface UserMapper {
      * @return
      */
     User getUserByTradingPwd(UserBO userBO);
+
+    /**
+     * 注册用户
+     * @param user
+     */
+    void registerUser(User user);
 }
