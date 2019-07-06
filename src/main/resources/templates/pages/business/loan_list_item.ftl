@@ -77,9 +77,9 @@
            <li onclick="gotoDetail(${(ious.id)!0})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${ious.purposeName} <img src="${iousRequestUrl}/img/right.png" style="width:0.3rem;height:0.3rem;position:relative;top:0.05rem;"></li>
        </ul>
        <ul class="my_content_title">
-           <li>待还总额<p>${ious.money} 元</p></li><li style="width:1px;height:1rem;border-left:1px solid #dbe4eb;margin-top:0.2rem;"></li>
+           <li>待还总额<p>${ious.principal} 元</p></li><li style="width:1px;height:1rem;border-left:1px solid #dbe4eb;margin-top:0.2rem;"></li>
            <li>借款本金<p>${ious.money} 元</p></li><li style="width:1px;height:1rem;border-left:1px solid #dbe4eb;margin-top:0.2rem;"></li>
-           <li>利息<p>${ious.money} 元</p></li>
+           <li>利息<p>${ious.interest} 元</p></li>
        </ul>
     </div>
     <div style="width:7.5rem;border-bottom:1px solid #eff0f1;height:0.5rem;margin-top:0.2rem;">

@@ -45,6 +45,14 @@ public class IousVO implements Serializable{
     private Integer	loanUserId;
 
     private Integer	cancelStatus;
+    /**
+     * 利息
+     */
+    private String interest;
+    /**
+     * 本息
+     */
+    private String principal;
 
     public Integer getId() {
         return id;
@@ -134,6 +142,22 @@ public class IousVO implements Serializable{
         this.cancelStatus = cancelStatus;
     }
 
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public String getPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(String principal) {
+        this.principal = principal;
+    }
+
     @Override
     public String toString() {
         return "IousVO{" +
@@ -148,6 +172,8 @@ public class IousVO implements Serializable{
                 ", lendUserId=" + lendUserId +
                 ", loanUserId=" + loanUserId +
                 ", cancelStatus=" + cancelStatus +
+                ", interest=" + interest +
+                ", principal=" + principal +
                 '}';
     }
 }

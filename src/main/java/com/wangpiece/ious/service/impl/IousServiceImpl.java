@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +151,13 @@ public class IousServiceImpl implements IIouService{
             }
 
             Integer money = ious.getMoney();
-            iousVO.setMoney(CalculateUtil.divide(money, 100,2).doubleValue());
+            Double  tempMoney = CalculateUtil.divide(money, 100, 2).doubleValue();
+            iousVO.setMoney(tempMoney);
+
+            BigDecimal interest = caculatInterest(DateUtils.getDays(ious.getLoanTime(), ious.getReturnTime()), rate, tempMoney);
+            iousVO.setInterest(interest.stripTrailingZeros().toPlainString());
+
+            iousVO.setPrincipal((tempMoney + interest.doubleValue()) + "");
         }
         return iousVO;
     }
@@ -279,5 +286,25 @@ public class IousServiceImpl implements IIouService{
             resultMap.put("day30Money","0.00");
         }
         return resultMap;
+    }
+
+    /**
+     * 计算利息
+     * @param day
+     * @param rate
+     * @param money
+     * @return
+     */
+    private BigDecimal caculatInterest(Integer day, Integer rate, Double money){
+
+        try{
+            Double interest = ((money  * rate) / 365) * day;
+            //利率除以100
+            BigDecimal result = CalculateUtil.divide(interest, 100,2);
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return new BigDecimal(0);
+        }
     }
 }

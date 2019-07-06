@@ -319,7 +319,7 @@ function tip(msg){
 
 $(function () {
     var os = getOs();
-    alert(os);
+    // alert(os);
     if(os == 'ios'){
         $('#postponeRate').css('width','5.3rem');
     }

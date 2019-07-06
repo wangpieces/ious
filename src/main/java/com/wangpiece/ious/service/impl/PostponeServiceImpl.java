@@ -65,6 +65,9 @@ public class PostponeServiceImpl implements IPostponeService{
         postpone.setUpdateTime(currentTime);
         postpone.setMoney(iousInfo.getMoney());
         postponeMapper.savePosepone(postpone);
+
+        //修改借条上的冗余信息，展期时间和利率
+        iousMapper.updateIousPostone(postpone.getIousId(), postpone.getPostponeTime(), postpone.getPostponeRate());
     }
 
     /**

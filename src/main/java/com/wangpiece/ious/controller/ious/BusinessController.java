@@ -10,6 +10,7 @@ import com.wangpiece.ious.dto.Postpone;
 import com.wangpiece.ious.service.ICodeService;
 import com.wangpiece.ious.service.IIouService;
 import com.wangpiece.ious.service.IPostponeService;
+import com.wangpiece.ious.utils.CalculateUtil;
 import com.wangpiece.ious.utils.DateUtils;
 import com.wangpiece.ious.vo.GetIousListVO;
 import com.wangpiece.ious.vo.IousVO;
@@ -226,9 +227,11 @@ public class BusinessController extends BaseController{
         if(!userId.equals(loanUserId) && !userId.equals(lendUserId)){
             return BASEDIR + "/not_found_detail";
         }
+
         model.addAttribute("ious",iousInfo);
         return BASEDIR + "/lend_list_item";
     }
+
 
     /**
      * 查看出借借条详细页面
@@ -250,10 +253,11 @@ public class BusinessController extends BaseController{
         if(!userId.equals(loanUserId) && !userId.equals(lendUserId)){
             return BASEDIR + "/not_found_detail";
         }
-        Postpone postpone = postponeService.getByIousId(iousId);
-        if(postpone != null){
-            iousInfo.setReturnTime(postpone.getPostponeTime());
-        }
+        //展示最初的借款时间
+//        Postpone postpone = postponeService.getByIousId(iousId);
+//        if(postpone != null){
+//            iousInfo.setReturnTime(postpone.getPostponeTime());
+//        }
 
         model.addAttribute("ious",iousInfo);
         return BASEDIR + "/lend_list_item_detail";

@@ -63,7 +63,7 @@
             <li class="list_item">
                 <label>
                     <span class="item_text">年化利率</span>
-                    <select  name="rate" id="rate" onchange="calculateBx()">
+                    <select  name="rate" id="rate" onchange="caculatPrincipal()">
                         <#if rateList??>
                             <#list rateList as rate>
                                 <option value="${rate.value}">${rate.name}</option>

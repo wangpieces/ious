@@ -3,6 +3,7 @@ package com.wangpiece.ious.mapper;
 import com.wangpiece.ious.bo.IousBO;
 import com.wangpiece.ious.dto.Ious;
 import com.wangpiece.ious.vo.GetIousListVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -57,6 +58,14 @@ public interface IousMapper {
      * @param iousBO 借条信息
      */
     void updateLoanUserId(IousBO iousBO);
+
+    /**
+     * 修改借条上的展期信息
+     * @param iousId
+     * @param postponeTime
+     * @param postponeRate
+     */
+    void updateIousPostone(@Param("iousId") Integer iousId, @Param("postponeTime") String postponeTime, @Param("postponeRate") Integer postponeRate);
 
     /**
      * 出借人/借款人获取借条信息（已经确认的借条）

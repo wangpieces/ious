@@ -32,9 +32,9 @@
     </select>
 
     <insert id="save" parameterType="Ious" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO ious (lendUserId,loanUserId,money,loanTime,returnTime,rate,lender,loaner,type,purpose,moreInfo,status,cancelStatus,createTime,updateTime)
+        INSERT INTO ious (lendUserId,loanUserId,money,loanTime,returnTime,rate,lender,loaner,type,purpose,moreInfo,status,cancelStatus,createTime,updateTime,postponeTime,postponeRate)
         VALUES (#{lendUserId},#{loanUserId},#{money},#{loanTime},#{returnTime},#{rate},#{lender},#{loaner},#{type},
-        #{purpose},#{moreInfo,jdbcType=VARCHAR,typeHandler=com.wangpiece.ious.handler.NullValueHandler},#{status},#{cancelStatus},#{createTime},#{updateTime});
+        #{purpose},#{moreInfo,jdbcType=VARCHAR,typeHandler=com.wangpiece.ious.handler.NullValueHandler},#{status},#{cancelStatus},#{createTime},#{updateTime},#{returnTime},#{rate});
     </insert>
 
     <!--获取借款用户id和支付状态获取所有借款借条信息-->
@@ -73,6 +73,10 @@
 
     <update id="updateLoanUserId" parameterType="Ious">
         update ious set loanUserId=#{loanUserId},type=#{type},updateTime=#{updateTime} where id=#{id};
+    </update>
+
+    <update id="updateIousPostone">
+        update ious set postponeTime=#{postponeTime},postponeRate=#{postponeRate} where id=#{iousId};
     </update>
 
     <select id="getIousList" resultType="Ious" parameterType="Ious">
@@ -124,11 +128,11 @@
         </if>
         <if test="loadTimeType == 2">
             <!--获取借款类型为7天的-->
-            and (to_days(i.returnTime)-to_days(i.loanTime))=6
+            and (to_days(i.postponeTime)-to_days(i.loanTime))=6
         </if>
         <if test="loadTimeType == 3">
             <!--获取借款类型为30天的-->
-            and (to_days(i.returnTime)-to_days(i.loanTime))=29
+            and (to_days(i.postponeTime)-to_days(i.loanTime))=29
         </if>
         <!--关键字搜索，借款借条，匹配出借人-->
         <if test="loadType == 1 and keyWord != null and keyWord != ''">
