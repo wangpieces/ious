@@ -3,8 +3,10 @@ package com.wangpiece.ious.controller.personal;
 import com.wangpiece.ious.annotation.NeedToken;
 import com.wangpiece.ious.common.CommonResult;
 import com.wangpiece.ious.controller.BaseController;
+import com.wangpiece.ious.dto.SmsResult;
 import com.wangpiece.ious.dto.User;
 import com.wangpiece.ious.service.IPersonalService;
+import com.wangpiece.ious.service.ISmsService;
 import com.wangpiece.ious.service.IUserService;
 import com.wangpiece.ious.vo.RegisterInfoVO;
 import com.wangpiece.ious.vo.SavePwdVO;
@@ -36,6 +38,9 @@ public class PersonalController extends BaseController{
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private ISmsService smsService;
 
     /**
      * 到个人中心
@@ -160,6 +165,21 @@ public class PersonalController extends BaseController{
             return BASEDIR + "/register";
         }
         //@TODO校验验证码对不对
+        SmsResult smsResult = smsService.getSmsInfoByPhone(phone);
+        if(smsResult == null){
+            LOGGER.info("验证码错或已经过期,请重试", smsResult);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","验证码错或已经过期,请重试");
+            return BASEDIR + "/register";
+        }else{
+            String tempCode = smsResult.getCode();
+            if(!code.equals(tempCode)){
+                LOGGER.info("验证码错或已经过期,请重试", smsResult);
+                model.addAttribute("errorMsg","验证码错或已经过期,请重试");
+                model.addAttribute("registerInfo", registerInfoVO);
+                return BASEDIR + "/register";
+            }
+        }
 
         try{
             //md5加密，登录密码
@@ -175,6 +195,7 @@ public class PersonalController extends BaseController{
             registerInfoVO.setPassword(md5Pwd);
             registerInfoVO.setTradingPassword(md5TradingPwd);
             personalService.saveRegister(registerInfoVO);
+            smsService.updateSmsInvalidFlag(smsResult.getId());
         }catch (Exception e){
             LOGGER.error("内部出错", e);
             model.addAttribute("registerInfo", registerInfoVO);
@@ -221,6 +242,21 @@ public class PersonalController extends BaseController{
             return BASEDIR + "/forget_password";
         }
         //@TODO校验验证码对不对
+        SmsResult smsResult = smsService.getSmsInfoByPhone(phone);
+        if(smsResult == null){
+            LOGGER.info("验证码错或已经过期,请重试", smsResult);
+            model.addAttribute("registerInfo", registerInfoVO);
+            model.addAttribute("errorMsg","验证码错或已经过期,请重试");
+            return BASEDIR + "/register";
+        }else{
+            String tempCode = smsResult.getCode();
+            if(!code.equals(tempCode)){
+                LOGGER.info("验证码错或已经过期,请重试", smsResult);
+                model.addAttribute("registerInfo", registerInfoVO);
+                model.addAttribute("errorMsg","验证码错或已经过期,请重试");
+                return BASEDIR + "/register";
+            }
+        }
 
         try{
             //md5加密，登录密码
@@ -228,8 +264,8 @@ public class PersonalController extends BaseController{
             String tempPwd = new String(tempPwdBytes,"UTF-8");
             String md5Pwd = DigestUtils.md5DigestAsHex(tempPwd.getBytes("UTF-8"));
             registerInfoVO.setPassword(md5Pwd);
-
             personalService.saveForgetPassword(registerInfoVO);
+            smsService.updateSmsInvalidFlag(smsResult.getId());
         }catch (Exception e){
             LOGGER.error("内部出错", e);
             model.addAttribute("registerInfo", registerInfoVO);

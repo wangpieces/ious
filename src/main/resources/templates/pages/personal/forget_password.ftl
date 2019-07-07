@@ -23,7 +23,7 @@
 <form action="${iousContextPath}/saveForgetPassword" method="post" name="registerForm" id="registerForm" onsubmit="return check();">
     <ul class="form">
         <li><input type="text" placeholder="请输入手机号" value="${(registerInfo.phone)!""}" id="phone" name="phone" minlength="11" maxlength="11" required/></li>
-        <li><input type="text" placeholder="请输入验证码" value="${(registerInfo.code)!""}" id="code" name="code" minlength="4" maxlength="4" required style="width: 65%" /><span id="confirm">获取验证码</span></li>
+        <li><input type="text" placeholder="请输入验证码" value="${(registerInfo.code)!""}" id="code" name="code" minlength="6" maxlength="6" required style="width: 65%" /><button type="button" id="confirm" onclick="sendCode()">获取验证码</button></li>
         <li><input type="password" placeholder="请输入新密码(6-20个字符,不能有空格)" id="tempPassword" minlength="6" maxlength="20" required/>
             <input type="hidden" id="password" name="password"/></li>
         <li><input type="password" placeholder="请确认新密码(6-20个字符,不能有空格)" id="tempSurePassword" minlength="6" maxlength="20" required/>
@@ -53,7 +53,17 @@
     //用户名密码校验需要这里处理。
     function check(){
 
+        var phone = $('#phone').val();
+        if(!isPoneAvailable(phone)){
+            tip('请输入有效电话号码');
+            return false;
+        }
+
         if(!validationPassword()){
+            return false;
+        }
+
+        if(!checkSmsCode()){
             return false;
         }
 
@@ -63,6 +73,26 @@
         var tempSurePassword = $.base64.btoa($('#tempSurePassword').val(), true);
         $('#surePassword').val(tempSurePassword);
         return true;
+    }
+
+    function checkSmsCode(){
+        var phone = $('#phone').val();
+        var flag = false;
+        $.ajax({
+            type: "GET",
+            async: false,//使用同步的方式,true为异步方式
+            url: "${iousContextPath}/api/business/checkSmsCode",
+            data:{phone: phone},
+            success: function(data) {
+                if(data.successful){
+                    flag = true;
+                }else {
+                    tip(data.message);
+                    flag = false;
+                }
+            }
+        });
+        return flag;
     }
 
     function validationPassword(){
@@ -102,6 +132,58 @@
             return false;
         }
         return true;
+    }
+
+    //发送验证码
+    function sendCode() {
+        var phone = $('#phone').val();
+        if(!isPoneAvailable(phone)){
+            tip('请输入有效电话号码');
+            return;
+        }
+        //发送验证码
+        $.ajax({
+            type: "GET",
+            url: "${iousContextPath}/api/business/sendSms",
+            data:{phone:phone},
+            success: function(data) {
+                if(data.successful){
+                    //倒计时
+                    countdown();
+                }else {
+                    tip(data.message);
+                }
+            }
+        });
+    }
+
+    function countdown(){
+        var i = 60;
+        $('#confirm').css('background','#ddd');
+        $('#confirm').attr('disabled',true);
+        var time = setInterval(function(){
+            $('#confirm').html('重新发送(' + i + 's)');
+            if(i == 0){
+                $('#confirm').css('background','#2d9cff');
+                $('#confirm').attr('disabled',false);
+                $('#confirm').html('获取验证码');
+                clearInterval(time);
+            }
+            i--;
+        },1000)
+    }
+
+    function isPoneAvailable(phone) {
+        var myreg=/^[1][3,4,5,7,8][0-9]{9}$/;
+        if(phone){
+            if (!myreg.test(phone)) {
+                return false;
+            } else {
+                return true;
+            }
+        }else{
+            return false;
+        }
     }
 
     //提示

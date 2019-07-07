@@ -5,16 +5,10 @@ import com.wangpiece.ious.bo.IousBO;
 import com.wangpiece.ious.bo.UserBO;
 import com.wangpiece.ious.common.CommonResult;
 import com.wangpiece.ious.controller.BaseController;
-import com.wangpiece.ious.dto.Code;
-import com.wangpiece.ious.dto.Ious;
-import com.wangpiece.ious.dto.Postpone;
-import com.wangpiece.ious.dto.User;
+import com.wangpiece.ious.dto.*;
 import com.wangpiece.ious.enums.IousCancelStatusEnum;
 import com.wangpiece.ious.enums.IousStatusEnum;
-import com.wangpiece.ious.service.ICodeService;
-import com.wangpiece.ious.service.IIouService;
-import com.wangpiece.ious.service.IPostponeService;
-import com.wangpiece.ious.service.IUserService;
+import com.wangpiece.ious.service.*;
 import com.wangpiece.ious.utils.CalculateUtil;
 import com.wangpiece.ious.utils.DateUtils;
 import com.wangpiece.ious.vo.GetIousListVO;
@@ -53,6 +47,8 @@ public class IousController extends BaseController{
     private ICodeService codeService;
     @Autowired
     private IPostponeService postponeService;
+    @Autowired
+    private ISmsService smsService;
     /**
      * 获取待还金额和代收金额
      * @author wang.xu
@@ -509,6 +505,54 @@ public class IousController extends BaseController{
             LOGGER.error("修改展期支付状态", e);
             result.setSuccessful(false);
             result.setMessage("修改展期支付状态失败");
+        }
+        return result;
+    }
+
+    /**
+     * 获取短信验证码
+     * @author wang.xu
+     * @date 2018-12-18
+     * @return
+     */
+    @GetMapping("/sendSms")
+    @ResponseBody
+    public CommonResult<String> sendSms(@RequestParam("phone") String phone) {
+        CommonResult<String> result = new CommonResult<>();
+        try{
+            String requestId = smsService.sendSms(phone);
+            result.setSuccessful(true);
+            result.setData(requestId);
+        }catch (Exception e){
+            LOGGER.error("获取短信验证码失败", e);
+            result.setSuccessful(false);
+            result.setMessage("获取短信验证码失败,请重试");
+        }
+        return result;
+    }
+
+    /**
+     * 校验验证码
+     * @author wang.xu
+     * @date 2018-12-18
+     * @return
+     */
+    @GetMapping("/checkSmsCode")
+    @ResponseBody
+    public CommonResult<Boolean> checkSmsCode(@RequestParam("phone") String phone) {
+        CommonResult<Boolean> result = new CommonResult<>();
+        try{
+            SmsResult smsResult = smsService.getSmsInfoByPhone(phone);
+            if(smsResult == null){
+                result.setSuccessful(false);
+                result.setMessage("验证码错或已经过期,请重试");
+            }else{
+                result.setSuccessful(true);
+            }
+        }catch (Exception e){
+            LOGGER.error("校验验证码失败", e);
+            result.setSuccessful(false);
+            result.setMessage("系统错误,请重试");
         }
         return result;
     }

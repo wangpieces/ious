@@ -1,12 +1,17 @@
 package com.wangpiece.ious.utils;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.expr.OracleSizeExpr;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tomcat.jni.Local;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * @author wang.xu
@@ -16,7 +21,7 @@ import java.util.Calendar;
 public class DateUtils {
 
     public static final String PATTERN_SHORT = "yyyy-MM-dd";
-    public static final String PATTERN_LONG= "YYYY-MM-dd HH:mm:ss";
+    public static final String PATTERN_LONG= "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 获取当前时间
@@ -79,6 +84,21 @@ public class DateUtils {
     }
 
 
+    /**
+     * 获取与传入时间相隔的时间，传入时间为分钟
+     * @param currentDate
+     * @param minutes
+     * @return
+     */
+    public static String getPlusMinutes(String currentDate,Integer minutes){
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(PATTERN_LONG);
+        LocalDateTime parse = LocalDateTime.parse(currentDate,df);
+        LocalDateTime plus = parse.plusMinutes(5);
+        String plusDate = plus.format(DateTimeFormatter.ofPattern(PATTERN_LONG));
+        return plusDate;
+    }
+
+
     public static void main(String[] args) {
 //        System.out.println( LocalDate.now());
 //        System.out.println( LocalTime.now());
@@ -89,8 +109,12 @@ public class DateUtils {
 //        System.out.println(getDays("2018-12-29"));
 //        System.out.println(getDays("2018-12-17","2018-12-29"));
 //        System.out.println(getDays("2018-12-29","2018-12-17"));
-        getPlusDays(7);
-        getPlusDays(1);
-        getPlusDays(2);
+//        getPlusDays(7);
+//        getPlusDays(1);
+//        getPlusDays(2);
+        String c = getCurrentDate();
+        System.out.println("c="+c);
+        String plusMinutes = getPlusMinutes(c, 5);
+        System.out.println("plusMinutes="+plusMinutes);
     }
 }

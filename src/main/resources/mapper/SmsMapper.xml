@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpiece.ious.mapper.SmsMapper">
+
+    <select id="getSmsInfoByPhone" parameterType="String" resultType="SmsResult">
+        select * from sms_result where phone = #{phone} and invalidFlag=1 and <![CDATA[ now() < invalidTime ]]> order by createTime desc limit 1;
+    </select>
+
+    <insert id="save" parameterType="SmsResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sms_result (message,requestId,bizId,code,responseCode,invalidFlag,createTime,invalidTime,phone)
+        VALUES (#{message},#{requestId},#{bizId},#{code},#{responseCode},#{invalidFlag},#{createTime},#{invalidTime},#{phone});
+    </insert>
+
+    <update id="updateSmsInvalidFlag" parameterType="Integer">
+        update sms_result set invalidFlag=2 where id = #{id};
+    </update>
+
+</mapper>
