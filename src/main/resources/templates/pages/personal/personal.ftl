@@ -57,18 +57,18 @@
                 </div>
             </a>
         </li>
-        <li class="setting_menu_item">
-            <a href="javascript:void(0);" onclick="gotoContactUs()">
-                <div>
-                    <span class="icon_wrap">
-                        <i class="icon icon_contact"></i>
-                    </span>
-                    <span class="item_title">联系我们</span>
-                    <span class="work_time">法定工作日：9:00-18:00</span>
-                    <i class="icon_zhankai"></i>
-                </div>
-            </a>
-        </li>
+        <#--<li class="setting_menu_item">-->
+            <#--<a href="javascript:void(0);" onclick="gotoContactUs()">-->
+                <#--<div>-->
+                    <#--<span class="icon_wrap">-->
+                        <#--<i class="icon icon_contact"></i>-->
+                    <#--</span>-->
+                    <#--<span class="item_title">联系我们</span>-->
+                    <#--<span class="work_time">法定工作日：9:00-18:00</span>-->
+                    <#--<i class="icon_zhankai"></i>-->
+                <#--</div>-->
+            <#--</a>-->
+        <#--</li>-->
     </ul>
 </div>
 <a href="javascript:void(0);" class="setting_logout" onclick="logout()">

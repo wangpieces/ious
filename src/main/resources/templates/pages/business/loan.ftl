@@ -91,9 +91,9 @@
         </ul>
         <input type="reset" id="reset" style="display:none;" />
     </form>
-    <p class="text_desc" style="color:red;">提示：<br/>请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，
-        请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，请输入您在投呗绑定的手机号，
-        我们会将您的密码发送至您的，请输入您在投呗绑定的手机号，我们会将您的密码发送至您的
+    <#--<p class="text_desc" style="color:red;">提示：<br/>请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，-->
+        <#--请输入您在投呗绑定的手机号，我们会将您的密码发送至您的，请输入您在投呗绑定的手机号，-->
+        <#--我们会将您的密码发送至您的，请输入您在投呗绑定的手机号，我们会将您的密码发送至您的-->
     <a href="javascript:initiate();" class="next_step_click_before" id="nextstep">确定</a>
 </section>
 
@@ -111,9 +111,9 @@
                 ,btn: ['发起', '放弃']
                 ,yes: function(index){
                     layer.close(index);
-                    setTimeout(function(){
-                        inputPassword();
-                    },300);
+                    inputPassword();
+                    // setTimeout(function(){
+                    // },300);
                 }
                 , style: 'font-size:0.30rem;text-align:center;'
               });

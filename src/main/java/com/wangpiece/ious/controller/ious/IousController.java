@@ -292,7 +292,7 @@ public class IousController extends BaseController{
         return result;
     }
     /**
-     * 修改借条的支付状态
+     * 修改借条的支付状态(借款人发起的借条让出借人确认)
      * @author wang.xu
      * @date 2018-12-18
      * @return
@@ -304,6 +304,34 @@ public class IousController extends BaseController{
         CommonResult<Boolean> result = new CommonResult<>();
         try{
             UserBO userInfo = getUserInfo();
+
+            IousBO tempIousBO = iouService.getIousInfo(id);
+            if(tempIousBO == null){
+                result.setSuccessful(false);
+                result.setMessage("操作失败，请刷新页面后重试");
+                LOGGER.info("获取借条信息失败");
+                return result;
+            }
+
+            Integer lendUserId = tempIousBO.getLendUserId();
+            if(lendUserId != null && lendUserId != 0 && lendUserId != userInfo.getId()){
+                result.setSuccessful(false);
+                result.setMessage("该借条已经被其他用户确认，请确认后重试");
+                LOGGER.info("该借条已经被其他用户确认，请确认后重试");
+                return result;
+            }
+
+            //判断借条上出借人的名字与当前确认人是否一致
+            String lender = tempIousBO.getLender();
+            String name = userInfo.getName();
+            if(!name.equals(lender)){
+                result.setSuccessful(false);
+                result.setMessage("出借人名称与确认人姓名不一致，请确认后重试");
+                LOGGER.info("出借人名称与确认人姓名不一致");
+                return result;
+            }
+
+
             IousBO iousBO = new IousBO();
             iousBO.setId(id);
             iousBO.setLendUserId(userInfo.getId());
@@ -315,12 +343,12 @@ public class IousController extends BaseController{
         }catch (Exception e){
             LOGGER.error("修改借条的支付状态", e);
             result.setSuccessful(false);
-            result.setMessage("修改借条的支付状态失败");
+            result.setMessage("操作失败，请刷新页面后重试");
         }
         return result;
     }
     /**
-     * 更改用户借条信息，将该借条与该用户绑定
+     * 更改用户借条信息，将该借条与该用户绑定(出借人发起的借条让借款人确认)
      * @author wang.xu
      * @date 2018-12-18
      * @return
@@ -343,11 +371,22 @@ public class IousController extends BaseController{
 
             Integer loanUserId = iousBO.getLoanUserId();
             if(loanUserId != null && loanUserId != 0 && loanUserId != userInfo.getId()){
-                LOGGER.info("该借条已经被其他用户确认，请与对方确认后重试");
+                LOGGER.info("该借条已经被其他用户确认，请确认后重试");
                 result.setSuccessful(false);
-                result.setMessage("该借条已经被其他用户确认，请与对方确认后重试");
+                result.setMessage("该借条已经被其他用户确认，请确认后重试");
                 return result;
             }
+
+            //判断借条上借款人的名字与当前确认人是否一致
+            String loaner = iousBO.getLoaner();
+            String name = userInfo.getName();
+            if(!name.equals(loaner)){
+                LOGGER.info("借款人名称与确认人姓名不一致");
+                result.setSuccessful(false);
+                result.setMessage("借款人名称与确认人姓名不一致，请确认后重试");
+                return result;
+            }
+
 
             iousBO = new IousBO();
             iousBO.setId(id);

@@ -191,7 +191,7 @@
                     tip('确认成功');
                     setTimeout(function(){goback();},1000);
                }else {
-                    tip('确认失败，请重试');
+                    tip(data.message);
                }
             }
         });
