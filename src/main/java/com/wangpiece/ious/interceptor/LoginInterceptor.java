@@ -1,5 +1,7 @@
 package com.wangpiece.ious.interceptor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,8 @@ import java.lang.reflect.Method;
 @Component
 public class LoginInterceptor implements HandlerInterceptor{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginInterceptor.class);
+
     @Value("${ious.context-path}")
     private String iousContextPath;
 
@@ -26,9 +30,8 @@ public class LoginInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
 
-        System.out.println("判断是否登录拦截器" );
         StringBuffer requestURL = request.getRequestURL();
-        System.out.println(requestURL.toString());
+        LOGGER.debug("判断是否登录拦截器",requestURL.toString());
         Object user = request.getSession().getAttribute("user");
         if(user == null){
 

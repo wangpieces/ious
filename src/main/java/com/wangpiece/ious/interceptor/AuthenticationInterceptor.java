@@ -9,6 +9,8 @@ import com.wangpiece.ious.annotation.NeedToken;
 import com.wangpiece.ious.dto.User;
 import com.wangpiece.ious.service.IUserService;
 import com.wangpiece.ious.utils.JWTUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
@@ -29,12 +31,13 @@ import java.lang.reflect.Method;
 @Component
 public class AuthenticationInterceptor implements HandlerInterceptor{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationInterceptor.class);
     @Autowired
     private IUserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("token检验过滤器");
+//        LOGGER.info("token检验过滤器");
         String token = request.getHeader("Authorization");// 从 http 请求头中取出 token
         // 如果不是映射到方法直接通过
         if(!(handler instanceof HandlerMethod)){
@@ -48,6 +51,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor{
             if (needToken.required()) {
                 // 执行认证
                 if (token == null) {
+                    LOGGER.error("获取不到token，请求不合法");
                     throw new RuntimeException("获取不到token，请求不合法");
                 }
                 // 获取 token 中的 phone
@@ -56,10 +60,12 @@ public class AuthenticationInterceptor implements HandlerInterceptor{
                     phone = JWT.decode(token).getAudience().get(0);
                 } catch (JWTDecodeException j) {
                     j.printStackTrace();
+                    LOGGER.error("获取不到token，请求不合法",j);
                     throw new RuntimeException("获取不到token，请求不合法");
                 }
                 User user = userService.getUserByPhone(phone);
                 if (user == null) {
+                    LOGGER.error("用户不存在，请求不合法");
                     throw new RuntimeException("用户不存在，请求不合法");
                 }
                 // 验证 token
@@ -67,6 +73,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor{
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
+                    LOGGER.error("获取不到token，请求不合法",e);
                     throw new RuntimeException("获取不到token，请求不合法");
                 }
                 return true;
