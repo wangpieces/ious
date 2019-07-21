@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>MF服务</title>
+    <title>众联成服务</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
     <meta name="format-detection" content="telephone=no, email=no" />
     <link rel="stylesheet" href="${iousRequestUrl}/css/common.css" />
@@ -248,7 +248,7 @@ function payIous(){
 function wechatPay() {
     layer.closeAll();
     layer.open({
-         content: '<img src="${iousRequestUrl}/img/1545753149.png"/><br/>请将二维码保存后打开微信支付'
+         content: '<img src="${iousRequestUrl}/img/wxpay.png"/><br/>请将二维码保存后打开微信支付'
         ,btn: '关闭'
         ,title: '微信支付'
     });
@@ -257,7 +257,7 @@ function wechatPay() {
 function zfbPay() {
     layer.closeAll();
     layer.open({
-         content: '<img src="${iousRequestUrl}/img/1545753183.png" /><br/>请将二维码保存后打开支付宝支付'
+         content: '<img src="${iousRequestUrl}/img/zfbpay.png" /><br/>请将二维码保存后打开支付宝支付'
         ,btn: '关闭'
         ,title: '支付宝支付'
     });

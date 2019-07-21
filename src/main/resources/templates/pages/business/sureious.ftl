@@ -241,7 +241,7 @@
     function wechatPay() {
         layer.closeAll();
         layer.open({
-             content: '<img src="${iousRequestUrl}/img/1545753149.png"/><br/>请将二维码保存后打开微信支付'
+             content: '<img src="${iousRequestUrl}/img/wxpay.png"/><br/>请将二维码保存后打开微信支付'
             ,btn: '关闭'
             ,title: '微信支付'
         });
@@ -250,7 +250,7 @@
     function zfbPay() {
         layer.closeAll();
         layer.open({
-             content: '<img src="${iousRequestUrl}/img/1545753183.png" /><br/>请将二维码保存后打开支付宝支付'
+             content: '<img src="${iousRequestUrl}/img/zfbpay.png" /><br/>请将二维码保存后打开支付宝支付'
             ,btn: '关闭'
             ,title: '支付宝支付'
         });
