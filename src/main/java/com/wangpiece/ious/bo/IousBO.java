@@ -24,6 +24,7 @@ public class IousBO implements Serializable{
     private String	moreInfo;
     private Integer	status;
     private Integer	cancelStatus;
+    private Integer	payStatus;
     private String	createTime;
     private String	updateTime;
 
@@ -179,6 +180,14 @@ public class IousBO implements Serializable{
 
     public void setPurposeName(String purposeName) {
         this.purposeName = purposeName;
+    }
+
+    public Integer getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(Integer payStatus) {
+        this.payStatus = payStatus;
     }
 
     @Override

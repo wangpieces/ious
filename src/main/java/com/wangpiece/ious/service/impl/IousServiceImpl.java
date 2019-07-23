@@ -289,6 +289,16 @@ public class IousServiceImpl implements IIouService{
     }
 
     /**
+     * 更新借条是否支付，其实只要点击支付图片就默认是支付了，没哟支付接口只能这样
+     *
+     * @param id
+     */
+    @Override
+    public void updatePayStatus(Integer id) {
+        iousMapper.updatePayStatus(id);
+    }
+
+    /**
      * 计算利息
      * @param day
      * @param rate

@@ -109,21 +109,21 @@
                 <a href="javascript:payIous();" class="next_step" style="width:2.5rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">支付借条费用</a>
             <#else>
                 <!--借条确认后才能继续支付借条费用-->
-                <a href="javascript:sureIous('${(ious.id)!0}');" class="next_step" style="width:2rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">确认借条1</a>
+                <a href="javascript:sureIous('${(ious.id)!0}');" class="next_step" style="width:2rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">确认借条</a>
             </#if>
         </#if>
         <!--借款人发起二维码，出借人扫描后看到的按钮-->
         <#if fromtype==1>
-            <a href="javascript:surePay('${(ious.id)!0}');" class="next_step" style="width:2rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">确认借条2</a>
+            <a href="javascript:surePay('${(ious.id)!0}');" class="next_step" style="width:2rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">确认借条</a>
         </#if>
 
         <!--只有发起人能删除借条-->
         <#if (ious.loanUserId)?? && ious.loanUserId != 0 && ious.type==1 && ious.loanUserId==user.id>
-            <a href="javascript:deleteIous('${(ious.id)!0}');" class="next_step" style="width:1.7rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">删除1</a>
+            <a href="javascript:deleteIous('${(ious.id)!0}');" class="next_step" style="width:1.7rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">删除</a>
         </#if>
         <!--只有发起人能删除借条-->
         <#if (ious.lendUserId)?? && ious.lendUserId != 0 && ious.type==2 && ious.lendUserId==user.id>
-            <a href="javascript:deleteIous('${(ious.id)!0}');" class="next_step" style="width:1.7rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">删除2</a>
+            <a href="javascript:deleteIous('${(ious.id)!0}');" class="next_step" style="width:1.7rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">删除</a>
         </#if>
     </#if>
     <br/>

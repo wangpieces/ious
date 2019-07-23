@@ -90,4 +90,10 @@ public interface IIouService {
      */
     Map<String,String> getIousMoney(Integer loadType,UserBO userInfo);
 
+    /**
+     * 更新借条是否支付，其实只要点击支付图片就默认是支付了，没哟支付接口只能这样
+     * @param id
+     */
+    void updatePayStatus(Integer id);
+
 }

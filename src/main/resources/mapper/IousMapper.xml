@@ -146,4 +146,8 @@
         </if>
     </select>
 
+    <update id="updatePayStatus">
+        update ious set payStatus = 1 where id=#{iousId};
+    </update>
+
 </mapper>

@@ -82,4 +82,10 @@ public interface IousMapper {
      * @return
      */
     List<Ious> getIousAndPostponeList(GetIousListVO getIousListVO);
+
+    /**
+     * 更新借条是否支付，其实只要点击支付图片就默认是支付了，没哟支付接口只能这样
+     * @param id
+     */
+    void updatePayStatus(@Param("iousId") Integer iousId);
 }

@@ -24,6 +24,7 @@ public class Ious implements Serializable{
     private String	moreInfo;
     private Integer	status;
     private Integer	cancelStatus;
+    private Integer	payStatus;
     private String	createTime;
     private String	updateTime;
     private Postpone postpone;
@@ -162,6 +163,14 @@ public class Ious implements Serializable{
 
     public void setPostpone(Postpone postpone) {
         this.postpone = postpone;
+    }
+
+    public Integer getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(Integer payStatus) {
+        this.payStatus = payStatus;
     }
 
     @Override

@@ -14,6 +14,7 @@
     <script src="${iousRequestUrl}/lib/js/layer.js"></script>
     <script src="${iousRequestUrl}/js/wapframwork.js"></script>
     <script src="${iousRequestUrl}/js/common.js"></script>
+    <script src="${iousRequestUrl}/js/myindex.js" type="text/javascript" charset="utf-8"></script>
     <style>
         .tradingPassword{width:4.8rem;height:1rem;border:1px solid #e6e6e6;text-align:center;font-size:0.3rem;}
         .forgetTradingPassword{float:right;margin-top:0.2rem;margin-right:0.4rem;}
@@ -33,7 +34,7 @@
             <li class="list_item">
                 <label>
                     <span class="item_text">借款金额</span>
-                    <input type="text" name="money"  id="money" minlength="1" maxlength="9" placeholder="借款金额" onblur="caculatPrincipal()">元
+                    <input type="text" name="money"  id="money" minlength="1" maxlength="9" placeholder="借款金额" onblur="caculatPrincipal()" style="width: 5.0rem">元
                 </label>
             </li>
             <li class="list_item">
@@ -73,7 +74,7 @@
                 </label>
             </li>
             <li class="list_item">
-                <label style="float:right;margin-right:0.3rem;font-size:0.25rem;color:#888;">
+                <label style="float:right;margin-right:0.4rem;font-size:0.25rem;color:#888;">
                     本金<span id="principal">0</span>+利息<span id="interest">0</span>=到期本息<span id="totalMoney" style="color:red;">0</span>元
                 </label>
             </li>
@@ -105,10 +106,12 @@
     function initiate() {
         var isChecked = $('#agree').prop('checked');
         if(isChecked && checkInfo()){
+            $('body').animate({scrollTop:10},'slow');
             layer.open({
                 content: '<p style="color:red;font-weight:bold;">借条是为已完成的借贷行为补一张借条，做为电子凭证，请确保你们线下交易完成</p><br/>'+
                          '对方确认后借条即刻生效，要发起该借条吗？'
                 ,btn: ['发起', '放弃']
+                ,shadeClose:false
                 ,yes: function(index){
                     layer.close(index);
                     inputPassword();
@@ -214,6 +217,14 @@
         return true;
     }
 
+    $(function () {
+        var os = getOs();
+        // alert(os);
+        if(os != 'ios'){
+            $('#loanTime').css('width','5.3rem');
+            $('#returnTime').css('width','5.3rem');
+        }
+    });
 
 </script>
 </html>

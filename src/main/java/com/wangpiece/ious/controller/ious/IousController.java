@@ -291,6 +291,26 @@ public class IousController extends BaseController{
         }
         return result;
     }
+
+    /**
+     * 更新借条是否支付，其实只要点击支付图片就默认是支付了，没哟支付接口只能这样
+     * @author wang.xu
+     * @date 2018-12-18
+     * @return
+     */
+    @GetMapping("/updatePayStatus")
+    @ResponseBody
+    @NeedToken
+    public CommonResult<Boolean> updatePayStatus(@RequestParam("id") Integer id) {
+        CommonResult<Boolean> result = new CommonResult<>();
+        try{
+            iouService.updatePayStatus(id);
+        }catch (Exception e){
+            LOGGER.error("删除借条信息", e);
+        }
+        return result;
+    }
+
     /**
      * 修改借条的支付状态(借款人发起的借条让出借人确认)
      * @author wang.xu

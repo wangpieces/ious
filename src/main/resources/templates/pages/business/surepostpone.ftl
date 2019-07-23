@@ -67,17 +67,17 @@
             <li><span style="border-left:0.1rem solid #40bfff;margin-left:0rem;">&nbsp;&nbsp;展期信息</span></li>
         </ul>
         <ul class="my_content_title" style="height:0.8rem;">
-            <li style="width:1.7rem;text-align:center;">金额</li>
-            <li style="width:1.7rem;text-align:center;">利率</li>
-            <li style="width:1.7rem;text-align:center;">时间</li>
-            <li style="width:1.6rem;text-align:center;">状态</li>
+            <li style="width:1.9rem;text-align:center;">金额</li>
+            <li style="width:1.0rem;text-align:center;">利率</li>
+            <li style="width:1.9rem;text-align:center;">时间</li>
+            <li style="width:1.9rem;text-align:center;">状态</li>
         </ul>
         <#if postpone??>
             <ul class="my_content_title" style="border:0px solid red;height:0.8rem;">
-                <li style="width:1.7rem;text-align:center;">${(postpone.money)!0} 元</li>
-                <li style="width:1.7rem;text-align:center;">${(postpone.postponeRateName)!''}</li>
-                <li style="width:1.7rem;text-align:center;">${(postpone.postponeTime)!''}</li>
-                <li style="width:1.6rem;text-align:center;">${(postpone.postponeStatusName)!''}</li>
+                <li style="width:1.9rem;text-align:center;">${(postpone.money)!0} 元</li>
+                <li style="width:1.0rem;text-align:center;">${(postpone.postponeRateName)!''}</li>
+                <li style="width:1.9rem;text-align:center;">${(postpone.postponeTime)!''}</li>
+                <li style="width:1.9rem;text-align:center;">${(postpone.postponeStatusName)!''}</li>
             </ul>
         </#if>
     </div>
@@ -248,7 +248,7 @@ function payIous(){
 function wechatPay() {
     layer.closeAll();
     layer.open({
-         content: '<img src="${iousRequestUrl}/img/wxpay.png"/><br/>请将二维码保存后打开微信支付'
+         content: '<img style="width:200px" src="${iousRequestUrl}/img/wxpay.png"/><br/>请将二维码保存后打开微信支付'
         ,btn: '关闭'
         ,title: '微信支付'
     });
@@ -257,7 +257,7 @@ function wechatPay() {
 function zfbPay() {
     layer.closeAll();
     layer.open({
-         content: '<img src="${iousRequestUrl}/img/zfbpay.png" /><br/>请将二维码保存后打开支付宝支付'
+         content: '<img style="width:200px" src="${iousRequestUrl}/img/zfbpay.png" /><br/>请将二维码保存后打开支付宝支付'
         ,btn: '关闭'
         ,title: '支付宝支付'
     });

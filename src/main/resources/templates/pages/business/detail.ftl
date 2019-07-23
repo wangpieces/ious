@@ -135,7 +135,9 @@
         <#if ious.type == 1>
             <!--当前登录人与借款人id一样，则为借款人-->
             <#if ious.loanUserId == user.id>
-                <a href="javascript:sendSure();" class="next_step" style="width:2rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">生成二维码</a>
+                <#if (ious.payStatus)?? && ious.payStatus== 1>
+                    <a href="javascript:sendSure();" class="next_step" style="width:2rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">生成二维码</a>
+                </#if>
                 <a href="javascript:payIous();" class="next_step" style="width:2.5rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">支付借条费用</a>
                 <a href="javascript:deleteIous('${(ious.id)!0}');" class="next_step" style="width:1.7rem;float:right;margin:0.1rem 0.2rem 0rem 0rem;height:0.8rem;line-height:0.8rem;">删除</a>
             <#else>
@@ -279,27 +281,57 @@
     //支付借条费用
     function payIous(){
        layer.open({
-             content: '<img src="${iousRequestUrl}/img/wechat.png" onclick="wechatPay();"/>&nbsp;&nbsp;<img src="${iousRequestUrl}/img/zfb.png" onclick="zfbPay();"/>'
+             content: '<img style="width:100px;height:100px;" src="${iousRequestUrl}/img/wechat.png" onclick="wechatPay();"/>&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:140px;height:105px;" src="${iousRequestUrl}/img/zfb.png" onclick="zfbPay();"/>'
             ,btn: '关闭'
             ,title: '请选择付款方式'
         });
     }
 
     function wechatPay() {
+        updatePayStatus();
         layer.closeAll();
         layer.open({
-             content: '<img src="${iousRequestUrl}/img/wxpay.png"/><br/>请将二维码保存后打开微信支付'
+             content: '<img style="width:200px;" src="${iousRequestUrl}/img/wxpay.png"/><br/>请将二维码保存后打开微信支付'
             ,btn: '关闭'
+            ,shadeClose:false
             ,title: '微信支付'
+            ,yes: function(index){
+                layer.close(index)
+                location.reload();
+            }
         });
     }
 
     function zfbPay() {
+        updatePayStatus();
         layer.closeAll();
         layer.open({
-             content: '<img src="${iousRequestUrl}/img/zfbpay.png" /><br/>请将二维码保存后打开支付宝支付'
+             content: '<img style="width:200px;"  src="${iousRequestUrl}/img/zfbpay.png" /><br/>请将二维码保存后打开支付宝支付'
             ,btn: '关闭'
+            ,shadeClose:false
             ,title: '支付宝支付'
+            ,yes: function(index){
+                layer.close(index)
+                location.reload();
+            }
+        });
+    }
+
+    /**
+     * 更新借条是否支付，其实只要点击支付图片就默认是支付了，没哟支付接口只能这样
+     */
+    function updatePayStatus(){
+        var id = $('#id').val();
+        $.ajax({
+            type: "GET",
+            url: "${iousContextPath}/api/business/updatePayStatus",
+            data:{id:id},
+            beforeSend: function(request) {
+                request.setRequestHeader("Authorization", "${token!''}");
+            },
+            success: function(data) {
+
+            }
         });
     }
 
